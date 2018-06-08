@@ -7,7 +7,10 @@
 * uses the following Databases :
 * Uses the following Report Files :
 * By : Sunil Gandhi
-* As On : 16/04/2018 4:30 pm ist
+* As On : 8/06/2018 4:30 pm ist
+* version 4.00  changed directory struc and have incorporated for proforma / quot
+*               Various changes to screens in order to take in details for prf/quo
+*               new scree added for tnc of quo
 * version 3.04 trying to remove the bugs present
 
 
@@ -35,14 +38,17 @@ m.ver = 4.00
 WAIT window  "Starting version " + tran(m.ver, "@l ##.##")
 
 
+dd = sys(5)
 
 
 IF adir(j3,"\\samba24\pmc\pm\cm\*") # 0
-  SET path to \\samba24\pmc\pm\cm
+  cmpth =  ',\\samba24\pmc\pm\cm'
 ELSE
 
-  SET path to f:\pm\daily.0\cm
+  cmpth =  ',f:\pm\daily.0\cm'
 ENDIF
+pth = '.,..\data,..\screens,..\repo' + cmpth
+set path to (pth)
 
 
 
