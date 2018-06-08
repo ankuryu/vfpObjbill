@@ -1,0 +1,36 @@
+Sr,Name,Type,scode,sabr,capital
+1,Jammu Kashmir,STATE,1,JK,SrinagarJammu
+2,Himachal Pradesh,STATE,2,HP,Shimla
+3,Punjab,STATE,3,PB,Chandigarh
+4,Chandigarh,UT,4,CH,Chandigarh
+5,Uttarakhand,STATE,5,UA,Dehradun
+6,Haryana,STATE,6,HR,Chandigarh
+7,Delhi,UT,7,DL,Delhi
+8,Rajasthan,STATE,8,RJ,Jaipur
+9,Uttar Pradesh,STATE,9,UP,Lucknow
+10,Bihar,STATE,10,BR,Patna
+11,Sikkim,STATE,11,SK,Gangtok
+12,Arunachal Pradesh,STATE,12,AR,Itanagar
+13,Nagaland,STATE,13,NL,Kohima
+14,Manipur,STATE,14,MN,Imphal
+15,Mizoram,STATE,15,MZ,Aizawl
+16,Tripura,STATE,16,TR,Agartala
+17,Meghalaya,STATE,17,ML,Shillong
+18,Assam,STATE,18,AS,Dispur
+19,West Bengal,STATE,19,WB,Kolkata
+20,Jharkhand,STATE,20,JH,Ranchi
+21,Orissa,STATE,21,OR,Bhubaneswar
+22,Chhattisgarh,STATE,22,CG,Raipur
+23,Madhya Pradesh,STATE,23,MP,Bhopal
+24,Gujarat,STATE,24,GJ,Gandhinagar
+25,Daman and Diu,UT,25,DD,Daman
+26,Dadra and Nagar Haveli,UT,26,DN,Silvassa
+27,Maharashtra,STATE,27,MH,Mumbai
+28,Andhra Pradesh,STATE,28,AP,Hyderabad
+29,Karnataka,STATE,29,KA,Bangalore
+30,Goa,STATE,30,GA,Panaji
+31,Lakshadweep,UT,31,LD,Kavaratti
+32,Kerala,STATE,32,KL,Thiruvananthapuram
+33,Tamil Nadu,STATE,33,TN,Chennai
+34,Puducherry,UT,34,PY,Puducherry
+35,Andaman Nicobar Islands,UT,35,AN,Port Blair

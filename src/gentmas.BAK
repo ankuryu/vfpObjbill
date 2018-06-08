@@ -1,0 +1,289 @@
+*  File gentmas.prg
+* uses Screen  frmtlymas.scx
+* as on 22/04/2016
+* generate the XML files for Tally9
+
+clear all
+clea
+set date brit
+*set console off
+* Save the current path
+ m.cur_path = set("path")
+ set path to ( m.cur_path + ";x:\tally72\data\0001;x:\tally72\data\0003")
+ 
+ 
+
+
+Dime m.addr[4]  &&  Address array
+oKont = createobj("ktlym")  && create the container object
+oKont.co = 'PM'
+do form frmtlymas  name oKont.frmRd noshow && set the frmRd
+oKont.gen_fname()
+
+use pm162top alia tup
+do while .t.
+  brow nomo fields f1no,f1dt,pname
+  if lastkey() = 27
+    exit
+  endif
+  oKont.add_tlm(tup.pname, tup.p_addr)
+enddo
+oKont.outxml()
+oKont.upd_ldgr()
+*susp
+set textmerge to
+
+return
+  
+  
+
+
+
+
+
+
+Define class ktlym as custom   && container class for tlymas
+  knt = 0             && total number of tlymas obj
+  Dime kntlst[1]      &&
+  ofname=""           && Output XML File name to write the xml
+  ldgfname = ''       && the ledger file which needs to be updated
+  otlym = NULL        && object of tlymas              
+  co = 'PM'           && company code
+  frmRd = NULL        && form to read the items
+
+function gen_fname  && makes the necessary filenames
+  this.ofname = this.co + "tlymasout.xml"
+  this.ldgfname = this.co + "acctldg.txt"
+  modi comm (this.ldgfname) 
+return
+  
+function outxml
+ Priv i,obj
+ m.obj = this.otlym
+ with this
+ .opn_out()
+ for i = 1 to .knt
+   m.obj = .kntlst[i]
+   this.otlym = m.obj
+   .rd_tlym()
+*   set step on
+   if !m.obj.pmvat == ""
+     m.obj.epname = m.obj.esc_it(m.obj.pname)
+     .out_ldg(m.obj.epname,"Sundry Debtors",m.obj.pmvat,m.obj.adar)
+   endif  
+ next i
+ .cls_out()
+ endwith
+return
+
+function upd_ldgr  && Updates the ledger used during outxml
+ set step on
+ acti scree
+ Priv fh,i,j
+ fh = fopen( this.ldgfname,12) && Open the file for writing
+ =fseek(fh,0,2) && move the file to the end of the file
+ for i = 1 to this.knt
+   this.otlym = this.kntlst[i]
+   if !this.otlym.pmvat == ""
+    j= this.otlym.pname + iif( fputs(fh,'"'+this.otlym.pname+'","Sundry Debtors"')> 0 ,"Added ","Could not Add")+ " In List"
+    ? j
+   endif 
+ next i   
+ =fclose(fh)
+return
+
+function add_tlm(pn,pa)      && adds a tallymas object
+ Priv n
+ n = this.knt+1
+
+ Dime this.kntlst[n]
+ this.kntlst[n] = createobject("tlymas")
+ this.otlym = this.kntlst[n]
+ this.otlym.pname = pn
+ this.otlym.paddr = pa
+ 
+ this.knt = n
+ return
+ 
+ function rd_tlym  && reads the using frmRd
+  Priv i,j , ttl
+  m.p_addr = this.otlym.paddr
+    m.obj = this.otlym
+  ttl = memlines(m.p_addr)
+  For i = 1 to 4 
+    m.addr[i] = mline(m.p_addr,i)
+    if at("VAT",m.addr[i])> 0
+      m.vattxt = m.addr[i]
+      m.vattin = obj.pars_vatno(m.vattxt)
+    endif
+  next i
+
+  with this.frmRd
+  .lblConame.caption = obj.pname
+  .edtAddr.controlsource = "m.p_addr"
+  .txtVat.controlsource  = "m.vattin"
+  .txtAd1.controlsource = "m.addr[1]"
+  .txtAd2.controlsource = "m.addr[2]"
+  .txtAd3.controlsource = "m.addr[3]"
+  .txtAd4.controlsource = "m.addr[4]"
+  .show()
+  Endwith
+  read events
+  if this.frmRd.ok
+    obj.pname = alltrim(obj.pname)
+    obj.pmvat = alltrim(m.vattin)
+    i = 1
+    j = 1
+    for j = 1 to 4
+      dime obj.adar[i]
+      if len(alltrim(m.addr[j]))> 0
+        obj.adar[i] = alltrim(m.addr[j])
+        i = i+1
+      endif
+    next j     
+  else
+    obj.vat = ""
+  endif  
+ return
+
+ function Opn_out  && send the premable for master import
+  set textmerge on to (this.ofname) noshow
+Text
+<ENVELOPE>
+<HEADER>
+<TALLYREQUEST>Import Data</TALLYREQUEST>
+</HEADER>
+<BODY>
+<IMPORTDATA>
+<REQUESTDESC>
+<REPORTNAME>All Masters</REPORTNAME>
+<STATICVARIABLES>
+<SVCURRENTCOMPANY>X</SVCURRENTCOMPANY>
+</STATICVARIABLES>
+</REQUESTDESC>
+Endtext
+ set textmerge off
+ return
+ 
+ 
+function out_ldg
+Para pname,parnt,vatno,adrar  && party name , parent ldg name  , vat Number and address array
+* set step on
+set textmerge on to (this.ofname) addi noshow
+Text
+<TALLYMESSAGE xmlns:UDF="TallyUDF">
+<LEDGER NAME="<<m.pname>>" RESERVEDNAME="">
+<NAME.LIST>
+<NAME><<m.pname>></NAME>
+</NAME.LIST>
+<ADDITIONALNAME><<m.pname>></ADDITIONALNAME><ISINTERESTON>No</ISINTERESTON>
+ <ADDRESS.LIST>
+Endtext
+For N = 1 to alen(m.addr)
+  m.ad =alltrim(addr[n])
+  if !empt(m.ad)
+    \ <ADDRESS><<m.ad>></ADDRESS>
+  endif
+next n
+Text
+  </ADDRESS.LIST>
+<VATTINNUMBER><<vatno>></VATTINNUMBER>
+<PARENT><<m.parnt>></PARENT><CURRENCYNAME>Rs.</CURRENCYNAME>
+<ISBILLWISEON>YES</ISBILLWISEON>
+<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+<AFFECTSSTOCK>No</AFFECTSSTOCK>
+<ISCONDENSED>No</ISCONDENSED>
+<SORTPOSITION> 1000</SORTPOSITION>
+<INTERESTONBILLWISE>No</INTERESTONBILLWISE>
+<OVERRIDEINTEREST>No</OVERRIDEINTEREST>
+<OVERRIDEADVINTEREST>No</OVERRIDEADVINTEREST>
+<FORPAYROLL>No</FORPAYROLL>
+<PAYTYPE/>
+<SHOWINPAYSLIP>No</SHOWINPAYSLIP>
+<ASSLABRATE>No</ASSLABRATE>
+<TDSDEDUCTEEISSPECIALRATE>No</TDSDEDUCTEEISSPECIALRATE>
+<TDSDEDUCTEEISCACERTIFIED>No</TDSDEDUCTEEISCACERTIFIED>
+<ISTDSAPPLICABLE>No</ISTDSAPPLICABLE>
+<USEFORVAT>No</USEFORVAT>
+<IGNORETDSEXEMPT>No</IGNORETDSEXEMPT>
+<TDSDEDUCTEETYPE/>
+<TAXTYPE/>
+<TAXCLASSIFICATIONNAME/>
+<TDSRATENAME/>
+<FORSERVICETAX>No</FORSERVICETAX>
+<ISINPUTCREDIT>No</ISINPUTCREDIT>
+<ISEXEMPTED>No</ISEXEMPTED>
+<SERVICECATEGORY/>
+</LEDGER>
+</TALLYMESSAGE>
+
+endtext
+set textmerge off 
+return
+
+
+function cls_out()
+set textmerge on to (this.ofname) addi noshow
+Text
+</IMPORTDATA>
+</BODY>
+</ENVELOPE>
+endtext
+set textmerge off  
+
+return
+
+enddefine
+
+Define class tlymas as custom
+pname = ''         &&  Party name
+epname = ''        &&  Escaped Party name
+pmvat = spac(12)   &&  Parties Vat No
+paddr = ''         && parties address
+oxml = ''          && this will contain the xmlstring
+dime adar[1]       && address array
+
+
+
+function esc_it(st)  && Escapes the String for XML
+Priv rs_str
+&& checks for  XML Escape sequences and substitutes with necessary
+rs_str = this.esc_chr(st,'&','&amp;')
+rs_str = this.esc_chr(rs_str,'<','&lt;')
+rs_str = this.esc_chr(rs_str,'>','&gt;')
+rs_str = this.esc_chr(rs_str,"'",'&apos;')
+rs_str = this.esc_chr(rs_str,'"','&quot;')
+
+return rs_str
+
+
+
+function esc_chr
+Para str,chr,sub
+
+j = 1
+k = 1  && occurence
+do while j > 0
+ j = at(chr,str,k)
+ str = iif(j>0,stuff(str,j,1,sub),str)
+ k = k+1
+enddo 
+return str
+
+
+
+
+function pars_vatno(j)  && parse the VAT No in the string and return it
+ Priv l,i,rv,o
+ rv = ""
+ l = len(j)
+ for i = 1 to l
+   o = subs(j,i,1)
+   rv = rv + iif(isdig(o),o,"")
+   if len(rv) = 11
+      exit
+   endif
+ next i 
+ return rv 
+  
+Enddefine

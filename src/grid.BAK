@@ -1,0 +1,100 @@
+create cursor jango ( name c(20))
+ insert into jango values("Sunil")
+ insert into jango values( "Varnil")
+ insert into jango values("Varsha")
+ insert into jango values("Vipin")
+ 
+
+
+
+
+frm1 = createobject("frmGrd")
+frm1.cmdOk.visible = .t.
+frm1.grd1.recordsourcetype = 1
+frm1.grd1.recordsource = 'jango'
+frm1.show()
+frm1.refresh()
+
+read events
+
+wait window frm1.vlu 
+clea all
+return
+
+
+
+Define  class frmGrd as form
+height = 300
+width =  500
+left = 150
+top = 50
+vlu = ""
+selst = .f.
+msg = ""
+
+function init
+ this.addobject("cmdOK","cmdOK")
+ this.addobject("cmdCanc","cmdCanc")
+ this.addobject("cmdExit","cmdExit")
+ this.addobject('grd1',"grid")
+ this.addobject('lbl1','label')
+  this.cmdOk.left = thisform.width - (thisform.cmdOK.width) - 5
+  this.cmdCanc.left  = thisform.width - (thisform.cmdCanc.width) - 5
+  this.cmdExit.left =thisform.width - 1*((thisform.cmdCanc.width) + 5)
+  this.cmdok.top = thisform.height - (thisform.cmdok.height +3)*4
+  this.cmdCanc.top = thisform.height - (thisform.cmdCanc.height +3)*3
+  this.cmdexit.top = thisform.height - (thisform.cmdExit.height +5) 
+  this.grd1.top = 5
+  this.grd1.left = 5
+  this.grd1.visible = .t.
+  this.lbl1.visible = .t.
+  
+  thisform.lbl1.top = thisform.height - 30
+  thisform.lbl1.caption = thisform.msg
+  thisform.lbl1.width = 130
+  this.lbl1.left = (thisform.width+ thisform.lbl1.width)/2
+return 
+
+enddefine
+
+
+Define class cmdOK as commandbutton
+ height = 30
+ width = 50
+ caption = "OK"
+ visible = .t.
+ 
+function click()
+ set step on
+ thisform.vlu = thisform.grd1.columns[1].text1.text
+ thisform.selst = .t.
+ thisform.hide
+ clear events
+enddefine
+
+
+
+Define class cmdCanc as commandbutton
+height = 30
+width = 50
+caption = "Cancel"
+visible = .t.
+
+function click()
+ thisform.vlu = ""
+ thisform.selst = .f.
+ thisform.hide
+ clear events
+enddefine
+
+Define Class cmdExit as commandbutton
+height  =30
+width = 50
+caption = "Exit"
+visible = .t.
+
+function click()
+thisform.hide
+clear events
+
+enddefine

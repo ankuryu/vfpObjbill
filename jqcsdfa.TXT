@@ -1,0 +1,262 @@
+
+
+  PCODE      PNAME                          P_ADDR MVAT         PTLY                                     PAN       
+  A0001      A.N.ASSOCIATES.                Memo   27830354851                                                     
+  A0002      ABSOLUTE SOLUTION.             Memo   23389150646                                                     
+  A0003      ADI ENGINEER.                  Memo   27280072350                                                     
+  A0004      AIE-TECH VALVES INDIA.         Memo   27600845846                                                     
+  A0005      AKSHIT ENTERPRISE.             Memo   27220100222                                                     
+  A0006      ALLANASONS PVT.LTD.            Memo   27550246462                                                     
+  A0007      ALLIED ENTERPRISES.            Memo   27180009646                                                     
+  A0008      ALLIED METAL & TUBES.          Memo   27390126367                                                     
+  A0009      AMANAT STEELS P.LTD.           Memo   27040780679                                                     
+  A0010      AMEE ENTERPRISE.               Memo   27270053683                                                     
+  A0011      AMI'S.                         Memo   27810185597                                                     
+  A0012      AMIZARA ENTERPRISE             Memo   27840134704                                                     
+  A0013      AMP COMPUTER SERVICES.         Memo   27850241835                                                     
+  A0014      ANJALI SALES CORP.             Memo   27060196243                                                     
+  A0015      APEX TRADING CO.               Memo   27060296347                                                     
+  A0016      APSARA ART MATERIAL P.LTD.     Memo   24250500258                                                     
+  A0017      ARYAN INDUSTRIES.              Memo   27580879322                                                     
+  A0018      ASHOK KUMAR BROS.              Memo   27790663139                                                     
+  A0019      ASIA ENTERPRISES.              Memo   27820147228                                                     
+  A0020      ATLAS ENTERPRISES.             Memo   27950064658                                                     
+  B0001      B.V.TRANSMISSION INDUSTRIES.   Memo   27910657350                                                     
+  B0002      BAL CONSTRUCTION CO.           Memo   27471044525                                                     
+  B0003      BANSI PULP & PAPER MILL LTD.   Memo   27590002970                                                     
+  B0004      BHADRESH TRADING CO.           Memo   27910006480                                                     
+  B0005      BHARAT ENTERPRISE.             Memo   27470109057                                                     
+  B0006      BHAVNA ENTERPRISE.             Memo   27170102820                                                     
+  B0007      BINO TRADERS.                  Memo   27110625683                                                     
+  B0008      BRIDGESTONE INDIA P.LTD.       Memo   23861603727                                                     
+  B0009      BUDHAGI ENGINEERS & CONTRACTOR Memo   27840263811                                                     
+  C0001      C.BOLE & CO.                   Memo   27310017383                                                     
+  C0002      CHAMUNDA SANITARY.             Memo   27500136928                                                     
+  C0003      CHETAN TRADING CO.             Memo   27270201705                                                     
+  C0004      CLASSIC FLOW CONTROL P.LTD.    Memo   27250905257                                                     
+  C0005      CONCEPT ENTERPRISES.           Memo   27970061543                                                     
+  C0006      CONCEPT PHARMACEUTICALS LTD.   Memo   27710001740                                                     
+  D0001      D.V.ENTERPRISE.                Memo   27960115335                                                     
+  D0002      DIGICON ENGINEERS (I) P.LTD.   Memo   27200032527                                                     
+  D0003      DIPNAL VALVE & TUBESTOS CO.    Memo   27500021789                                                     
+  D0004      DOGRA PUMPS.                   Memo   27670587545                                                     
+  D0005      DOSHI HEATERS PVT.LTD.         Memo   27060287908                                                     
+  D0006      DRP METAL WORKS.               Memo   03631073060                                                     
+  E0001      ECON ENGINEERS.                Memo   19671291735                                                     
+  E0002      ECOTECH AQUA ENVIRO ENGG.      Memo   27221052762                                                     
+  E0003      ECOTHERM ENERGY SYSTEMS.       Memo   27690064995                                                     
+  E0004      ELASTOMER LINING WORKS.        Memo   27760574255                                                     
+  E0005      ELECTRO LAB SERVICES.          Memo   27450363305                                                     
+  E0006      ENAR CORPORATION.              Memo   27770378261                                                     
+  E0007      ENGINEERING CONSOLIDATED.      Memo   27820007451                                                     
+  E0008      ENGINEERING TRADE SYNDICATE.   Memo   27190120366                                                     
+  E0009      ENJAY ENTERPRISE.              Memo   27850715001                                                     
+  E0010      EVEREST SALES CORP.            Memo   27190059256                                                     
+  E0011      EXCELLENT ENGG.WORKS.          Memo   27155274774                                                     
+  F0001      FATHE ENTERPRISE.              Memo   27670749729                                                     
+  F0002      FEV INDIA PVT.LTD.- MAR.2016   Memo   27780691614                                                     
+  F0003      FIRE REMEDY SYSTEMS.           Memo   27170805585                                                     
+  F0004      FIREFLY FIRE PUMPS P.LTD.      Memo   27830103524                                                     
+  F0005      FORMOKEM (INDIA) CORP.         Memo   27230267202                                                     
+  F0006      FRIENDS & COMPANY.             Memo   --NIL--.                                                        
+  F0007      FRIGORIFICO ALLANA PVT.LTD.    Memo   27790000144                                                     
+  G0001      GAJMUKHA INDUSTRIES.           Memo   27671149757                                                     
+  G0002      GANESH BENZOPLAST LTD.         Memo   27520298422                                                     
+  G0003      GASTRONICS.                    Memo   27150132901                                                     
+  G0004      GAUTAM AGENCIES.               Memo   27910577034                                                     
+  G0005      GAUTAM ENTERPRISE.             Memo   27381055293                                                     
+  G0006      GEETA ENTERPRISE.(DOMBI).      Memo   27910327550                                                     
+  G0007      GENERAL TRADING CORP.(PUNE).   Memo   27190301659                                                     
+  G0008      GLOBAL TRADERS.                Memo   27300682663                                                     
+  G0009      GMK AIRCON.                    Memo   27420822956                                                     
+  G0010      GOOD ENTERPRISE.               Memo   27480705456                                                     
+  H0001      H.J.INTERNATIONAL.             Memo   27480293109                                                     
+  H0002      H.R.CORPORATION.               Memo   27500060201                                                     
+  H0003      HARIOM PROJECTS P.LTD.         Memo   29221147110                                                     
+  H0004      HELIX TECHNIKS.                Memo   27240253374                                                     
+  H0005      HEM CORPORTION.                Memo   27090701958                                                     
+  H0006      HEM ENGINEERS.                 Memo   27860193863                                                     
+  H0007      HIGH RISE FIRE PROTECT.SYSTEMS Memo   27220734893                                                     
+  H0008      HINDUSTAN PENCILS PVT.LTD.     Memo   24250500294                                                     
+  H0009      HINDUSTAN PENCILS PVT.LTD.     Memo   26000001744                                                     
+  H0010      HINDUSTAN SANITARY STORE.      Memo   27540626853                                                     
+  H0011      HONEST ENTERPRISE.             Memo   27040130294                                                     
+  H0012      HY-TECH ENGINEERS.             Memo   27300406601                                                     
+  H0013      HYDAC (INDIA) PVT.LTD.         Memo   33951804254                                                     
+  H0014      HYDERABAD INDL.SUPPLIERS.      Memo   38412978210                                                     
+  H0015      HYDROTECH SYSTEMS.             Memo   27900935309                                                     
+  I0001      I.M.ENTERPRISES.               Memo   27580699387                                                     
+  J0001      J.K.INDUSTRIES.                Memo   27510277912                                                     
+  J0002      J.K.INFRA-UTILITIES P.LTD.     Memo   27140663836                                                     
+  J0003      J.M.TRADERS.                   Memo   27100150631                                                     
+  J0004      JAJU CHEMICALS P.LTD.(UNIT-II) Memo   27280028506                                                     
+  J0005      JAYANTILAL & ASSOCIATES (I).   Memo   27280079043                                                     
+  J0006      JAYSHREE TRADERS.              Memo   27180325769                                                     
+  J0007      JBS HEATING SYSTEMS P.LTD.     Memo   19671050593                                                     
+  J0008      JHAVERI BROTHERS.              Memo   27340089971                                                     
+  J0009      JITENDRA ENTERPRISE.           Memo   27330087697                                                     
+  J0010      JOZA ENTERPRISES.              Memo   2726067535.                                                     
+  J0011      JSW STEEL (SALAV) LTD.         Memo   27630710660                                                     
+  J0012      JUMBO EXPORTS.                 Memo   27620692963                                                     
+  J0013      JYOTI METAL CORP.              Memo   27870547471                                                     
+  J0014      JYOTI SALES CORP.              Memo   27580084115                                                     
+  K0001      K.R.CORPORATION.               Memo   27160154963                                                     
+  K0002      K.VALVES & TUBES ENGG.P.LTD.   Memo   27300040232                                                     
+  K0003      KAPOOR GLASS (I) P.LTD.        Memo   27290001680                                                     
+  K0004      KARANJAWALA ASSOC.ENGG.P.LTD.  Memo   27530683458                                                     
+  K0005      KAZAF ENGINEERING CO.          Memo   27840012193                                                     
+  K0006      KDP ENGINEERS.                 Memo   27501096937                                                     
+  K0007      KETAN INDUSTRIES.              Memo   27380106342                                                     
+  K0008      KHUSHBOO ENTERPRISES.          Memo   27230619312                                                     
+  K0009      KINJAL INTERNATIONAL.          Memo   27680521143                                                     
+  K0010      KIRLOSKAR PNEUMATICS CO.LTD.   Memo   27360344294                                                     
+  K0011      KPANTECH ENTERPRISE.           Memo   24040902652                                                     
+  K0012      KRB INDUSTRIES.                Memo   27650256495                                                     
+  L0001      L&T.LTD.CONST.(POWAI).         Memo   27850300132                                                     
+  L0002      LAKDAWALA & CO.                Memo   27680229949                                                     
+  L0003      LAXMI ENTERPRISE.(G'KOPAR).    Memo   27580404410                                                     
+  L0004      LEADER VALVES LTD.             Memo   03101106768                                                     
+  L0005      LEBEN LABORATORIES P.LTD.      Memo   27510005536                                                     
+  M0001      M.B.SUGARS & PHARMAC.LTD.      Memo   27340360698                                                     
+  M0002      M.K.TRADERS.                   Memo   27290215759                                                     
+  M0003      M.S.ENTERPRISE.                Memo   27900135738                                                     
+  M0004      M.V.ENTERPRISES.(SHOLAPUR).    Memo   27520189588                                                     
+  M0005      M.Z.ENTERPRISES.               Memo   27171126073                                                     
+  M0006      MADRAS METALS.                 Memo   27350923147                                                     
+  M0007      MAGNICHEM INDUSTRIES.          Memo   27390343259                                                     
+  M0008      MARINE OFFSHORE SUPPLY.        Memo   27440017942                                                     
+  M0009      MAYUR ENTERPRISES.             Memo   27440714014                                                     
+  M0010      MEGHA ENGINEERING WORKS.       Memo   27030367416                                                     
+  M0011      MEGHA INDUSTRIES.              Memo   27240061508                                                     
+  M0012      MEGHA INDUSTRIES.              Memo   27551132557                                                     
+  M0013      MEW ENGINEERING WORKS P.LTD.   Memo   24250800178                                                     
+  M0014      MIC ENGINEERS PVT.LTD.         Memo   27220791735                                                     
+  M0015      MICRO VALVES ENGG.CO.          Memo   27240548933                                                     
+  M0016      MIGHTY MARKETING.              Memo   27080400611                                                     
+  M0017      MODERN CERAMICS.               Memo   27480007153                                                     
+  M0018      MODERN SALES AGENCY (I) P.LTD. Memo   27670384912                                                     
+  M0019      MONAL COLOUR INDUSTRIES.       Memo   08653950035                                                     
+  M0020      MUKESH & CO.                   Memo   27210132674                                                     
+  N0001      NATIONAL HARDWARE STORE.       Memo   27030089220                                                     
+  N0002      NATIONAL METAL INDUSTRIES.     Memo   27150013106                                                     
+  N0003      NAVRATNA TEXTILE MILLS P.LTD.  Memo   27200262805                                                     
+  N0004      NEW BOMBAY H/W.TRADERS P.LTD.  Memo   27140013157                                                     
+  N0005      NEW STAR ELECTRIC WORKS.       Memo   27701116227                                                     
+  N0006      NEWAGE FIRE PROTECT.INDUST.    Memo   27320789643                                                     
+  N0007      NIPUR CHEMICALS LTD.           Memo   27200266394                                                     
+  N0008      NIRMAL AGENCIES.               Memo   27630326540                                                     
+  O0001      OCEAN VALVES & EQUIPMENTS.     Memo   27540918726                                                     
+  O0002      OMKAR ENGG.WORKS.              Memo   27710121050                                                     
+  O0003      ORIGIN QUALITY SERVICES.       Memo   27130376188                                                     
+  P0001      sdff                           Memo   dd                                                    dd        
+  P0002      PAMS INDUSTRIES.               Memo   27750346262                                                     
+  P0003      PANCHSHEEL ENGG.CORP.          Memo   27520047774                                                     
+  P0004      PARAS PIPE FITTINGS CO.        Memo   27960055486                                                     
+  P0005      PARAS SALES CORP.              Memo   27230511836                                                     
+  P0006      PFS SHIPPING (INDIA) LTD.      Memo   --NIL--     
+ SE                                                     
+  P0007      POLYRUB EXTRUSIONS (I) P.LTD.  Memo   27360500173                                                     
+  P0008      PRADIP ENGINEERING STORE.      Memo   27180322568                                                     
+  P0009      PRECISION ELECT.INST.COMPON.   Memo   27670260752                                                     
+  P0010      PRESIDENT VALVES (INDIA).      Memo   27170650579                                                     
+  P0011      PRESTIGE INDL.TRADERS.         Memo   24221805436                                                     
+  P0012      PRIMESH TRADING CO.            Memo   27390101923                                                     
+  P0013      PUSHTI ENTERPRISE.             Memo   27480383804                                                     
+  P0014      PANALAL MOHANLAL & CO          Memo   27840408535                                           AAAFP1396C
+  Q0001      QASWA ENTERPRISES.             Memo   27410994894                                                     
+  R0001      R.C.TECHNOCOMP SERVICES P.LTD. Memo   27200223229                                                     
+  R0002      R.H.J.INDUSTRIES P.LTD.        Memo   25000001478                                                     
+  R0003      R.JAYESHKUMAR & CO.            Memo   27250026146                                                     
+  R0004      RAJ AGENCY.                    Memo   27710075266                                                     
+  R0005      RAJ ENTERPRISES.               Memo   27791044252                                                     
+  R0006      RAJAT METALS.                  Memo   27780050929                                                     
+  R0007      RAJDEEP DISTRIBUTORS P.LTD.    Memo   27540016820                                                     
+  R0008      RAJDEEP INDL.PROD.P.LTD.(PUNE) Memo   27460268773                                                     
+  R0009      RAJLAXMI INDUSTRIES.           Memo   27340950749                                                     
+  R0010      RAZ BOILERS PVT.LTD.           Memo   27740599680                                                     
+  R0011      REAL CERAMIC.                  Memo   27120534352                                                     
+  R0012      RELIABLE SYSTEMS & CONTROLS.   Memo   27570355091                                                     
+  R0013      RIDDHI SIDDHI & CO.            Memo   27170947011                                                     
+  R0014      RIDDHI SIDDHI CORP.            Memo   27740143392                                                     
+  R0015      ROCK STONE INDUSTRIES.         Memo   08903952371                                                     
+  R0016      ROHIT ENTERPRISES.             Memo   27160287950                                                     
+  R0017      RONAK ENTERPRISES.             Memo   27370503029                                                     
+  R0018      RUCHIT TUBE CO.                Memo   27240219812                                                     
+  R0019      RUNA ENTERPRISES.              Memo   27260114265                                                     
+  S0001      S.B.ENTERPRISES.               Memo   27810008087                                                     
+  S0002      S.BALUBHAI & CO.               Memo   27410018783                                                     
+  S0003      S.D.AUTOMOBILES WORKS.         Memo   27151121040                                                     
+  S0004      S.D.M.I.D.                     Memo   27160009269                                                     
+  S0005      S.D.MEP SERVICES.              Memo   27040704049                                                     
+  S0006      S.K.ENTERPRISE.                Memo   27550692177                                                     
+  S0007      S.N.PLUMBING PVT.LTD.          Memo   27950793807                                                     
+  S0008      S.R.ENGINEERING CORP.          Memo   27210543275                                                     
+  S0009      S.S.K.ENGG.WORKS.(I) P.LTD.    Memo   27260780946                                                     
+  S0010      SAGAR ENTERPRISE.(N.DHURU).    Memo   27620703924                                                     
+  S0011      SAGAR SHIP REPAIRERS & MARINE. Memo   27040113707                                                     
+  S0012      SAI INDUSTRIES.                Memo   27760186158                                                     
+  S0013      SAIFEE HARDWARE & TOOLS.       Memo   27221146367                                                     
+  S0014      SAILEELA AMMONIA & CHEM.P.LTD. Memo   27470034076                                                     
+  S0015      SAMARTH ENGINEERING CO.        Memo   27870500620                                                     
+  S0016      SAMIR ENGINEERING CORP.        Memo   27150015046                                                     
+  S0017      SANGHVI OVERSEAS.              Memo   27930338888                                                     
+  S0018      SANGHVI WOODS PVT.LTD.         Memo   01301070413                                                     
+  S0019      SANGHVI WOODS PVT.LTD.         Memo   24250500465                                                     
+  S0020      SANGHVI WOODS PVT.LTD.         Memo   27100387602                                                     
+  S0021      SANJAY ENTERPRISE.             Memo   27430147976                                                     
+  S0022      SANJIVAN INDUSTRIES P.LTD.     Memo   27960910056                                                     
+  S0023      SANJIVAN INDUSTRIES.           Memo   27660045951                                                     
+  S0024      SANTOSH RUBBER MACHINERY P.LTD Memo   27410002875                                                     
+  S0025      SARASWATI FIRE PROTECT.SYSTEM. Memo   27540342546                                                     
+  S0026      SAWANT ENTERPRISES.            Memo   27340557123                                                     
+  S0027      SCIENTIFIC PRECISION P.LTD.    Memo   27490349509                                                     
+  S0028      SECON ENGIN.& CONSTRUCT.CO.    Memo   27391016827                                                     
+  S0029      SEW ENGG.(INDIA) P.LTD.        Memo   27390000752                                                     
+  S0030      SHAH TRADERS.                  Memo   27180045924                                                     
+  S0031      SHANTI SANITARYWARE.           Memo   27600108549                                                     
+  S0032      SHES AIR & AUTOMATION.         Memo    SUKHWANI,                                                       
+  S0033      SHIVAM ENTERPRISES.            Memo   27761034617                                                     
+  S0034      SHREE MITRA PURIFICATIONS.     Memo   27290100523                                                     
+  S0035      SHREE SHYAM ENTERPRISES.       Memo   27750069909                                                     
+  S0036      SHREEJI ENTERPRISES.(ADH).     Memo   27920704147                                                     
+  S0037      SHREYANS INDUSTRIES.           Memo   27540660512                                                     
+  S0038      SHUBHAM ENTERPRISE.            Memo   27180130314                                                     
+  S0039      SIGMA MARINE & OFFSHORE SUPPLI Memo   27030692657                                                     
+  S0040      STAR BEARING CORP.             Memo   27600129404                                                     
+  S0041      STEAMTECH ENGINEERING.         Memo   27660406306                                                     
+  S0042      SUHAS TRADING CORP.            Memo   27820755127                                                     
+  S0043      SUNIL ENTERPRISES.             Memo   27090832983                                                     
+  S0044      SUPERMAX BOILER ENGINEERS.     Memo   27840196008                                                     
+  S0045      SUPREME HARDWARE.              Memo   27370097957                                                     
+  S0046      SWASTIK ENTERPRISES (PYDNI).   Memo   27660382929                                                     
+  S0047      SWASTIK ENTERPRISES.           Memo   27560378910                                                     
+  S0048      SWASTIK HARDWARE.(FORT).       Memo   27690155108                                                     
+  S0049      SYNDICATE SALES CORP.          Memo   27330077706                                                     
+  T0001      TANAJI PLUMBING WORKS.         Memo   27740663894                                                     
+  T0002      TECHBUILD.                     Memo   27360012748                                                     
+  T0003      THE MIRADOR.                   Memo   27140002199                                                     
+  T0004      TIME STAR DEVELOPERS P.LTD.    Memo   27120684411                                                     
+  T0005      TRIMURTI FABRICATORS P.LTD.    Memo   27040396753                                                     
+  T0006      TURBHE IRON & STEEL TRDG.P.LTD Memo   27820063517                                                     
+  U0001      UNINAM INDL.MARKETING.         Memo   27450039228                                                     
+  U0002      UNIQUE ENTERPRISE. (NAG)       Memo   27500047882                                                     
+  U0003      UNITED RUBBER INDUS.(I) P.LTD. Memo   27370001248                                                     
+  V0001      VALI ENTERPRISE.               Memo   27840824277                                                     
+  V0002      VALSON ENGINEERS.              Memo   24070403117                                                     
+  V0003      VASANTRAI & CO.                Memo   27030174580                                                     
+  V0004      VASUNDHARA ASSOCIATES.         Memo   27480780049                                                     
+  V0005      VASUNDHARA ASSOCIATES.         Memo   SHNA KUNJ S                                                     
+  V0006      VEL ENGINEERING SERVICES.      Memo   27960712370                                                     
+  V0007      VENUS ENTERPRISES.             Memo   27270393765                                                     
+  V0008      VIBGYOR DECORS.                Memo   -APPLIED-.                                                       
+  V0009      VIJAY TYRES P.LTD.             Memo   29390135355                                                     
+  V0010      VIMAL TRADING CO.              Memo   27340203073                                                     
+  V0011      VIPUL VALVES CO.               Memo   27600122129                                                     
+  V0012      VIRAJ ENTERPRISE.              Memo   27550659488                                                     
+  V0013      VISHNUPREM ELECTRICAL & ASSOC. Memo   27290177250                                                     
+  V0014      VKS PROJECTS LTD.              Memo   27690251817                                                     
+  V0015      VOLTAS LIMITED.                Memo   32070266965                                                     
+  V0016      VORA ASSOCIATES.               Memo   27570974145                                                     
+  V0017      VYBRANT TRADING CO.            Memo   27170720807                                                     
+  Z0001      ZEN CORPORATION.               Memo   27020966930                                                     
+  Z0002      ZENITH RUBBER PRODUCTS.        Memo   27740235251                                                     

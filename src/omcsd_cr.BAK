@@ -1,0 +1,14 @@
+* File omcsd_cr.prg
+* as on 16/05/17
+* Creates a master file required for the getting data/verifying data in
+* omcs and omcsd object
+* written by 
+
+
+create table omcsd (ki char(5),fname memo,scp char(3))
+insert into omcsd (ki,fname,scp) value ( "MFG","\pm\cm\invmfg","ALL")
+insert into omcsd (ki,fname,scp) value ("ASIZE","\pm\cm\invsize.dbf","ALL")
+insert into omcsd (ki,fname,scp) value ("ICODE","\pm\cm\Invnamep.dbf","ALL")
+insert into omcsd (ki,fname,scp) value ("PRICE","","LDR")
+insert into cmcsd (ki,fname,scp) value ("PRICE","","SKS")
+

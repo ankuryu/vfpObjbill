@@ -1,0 +1,91 @@
+* File gtr1V31.prg
+* VERSION 2 DOESNT TAKE CM HSN , SINCE PROBLEM WITH SQL IN FOXPRO
+* creates the gtr1 from the sales / cash memo invoice file
+* as on 16Sep 2017
+* By Sunil Gandhi
+* Prepares Sales GR1 Data and HSN Data on the basis of Invoice/CM
+* Usage  Do gtr1 with "CO", mth   (as of now defaults to year 2017)
+*  where co = "PM" / "KC"
+*  mth = Numerical value of range 0-12  for month 1=Jan , 2 = Feb , 12 = Dec etc.
+*
+*  DO   GTR1  with  "CO , mth
+* 
+*
+
+para  pco,pmth
+m.co = iif(type('pco')="C" .and. m.pco $ 'PMKC' ,m.pco,"PM") && Default to PM if no para
+m.mth = iif(type('pmth')='N' .and. between(m.pmth,0,12), m.pmth, month(date()-1)) && defualt to prev month of date
+
+set excl off
+set date brit
+
+if file("\\samba24\pmc\pm\cm\cf.dbf")
+  set path to \\samba24\pmc\pm\cm
+else
+  set path to c:\pm\cm
+endif
+
+* Added automatic month and  year detection and default to  co = pm
+
+year = year(date()) -2000
+year = year - iif(between(month(date()),4,12),0,1)
+yr = str(year)
+
+
+
+* m.co = 'PM'
+m.bk = "2"
+* m.mth = 8
+* m.yr = "17"
+m.ftup2 = m.co + m.yr + m.bk + "top"
+m.fitm2 = left(m.ftup2, 5) + "itm"
+m.fob2b = left(m.ftup2,5) + tran(mth, '@l ##') + "b2b.csv"
+m.fohsn = left(m.fob2b,7) + "hsn.csv"
+
+m.ftup1 = m.co + m.yr + '1' + 'top'
+m.fitm1 = left(m.ftup1, 5) + "itm"
+
+select * from (m.fitm2) as itm left join (m.ftup2) as tup on tup.f1no==itm.bno  where month(tup.f1dt) == m.mth ORDER BY F1NO into cursor bk2
+
+select * from (m.fitm1) as itm left join (m.ftup1) as tup on tup.f1no==itm.bno  where month(tup.f1dt) == m.mth  ORDER BY F1NO into cursor bk1
+
+
+sele bk1 
+brow nowait
+sele bk2
+brow nowait
+
+select gst,f1no,f1dt,0 as amt,left(gst,2)as pos,"N","" as eg,tax,sum(round(amt*(1+dsc/100),2)) as txbl,0 as cess from bk2 group by f1no,tax where tax > 0 into cursor b2b
+
+select f1no,hsn,rate,qty,unt,tax,dsc,left(gst,2)# "27" as iflg  from bk1  where !empty(hsn)  ;
+into cursor hsnt1 
+sele hsnt1
+Brow nowait
+
+select f1no,hsn,rate,qty,unt,tax,dsc,left(gst,2)# "27" as iflg  from bk2  where !empty(hsn)  ;
+into cursor hsnt2 
+
+select * from hsnt1 UNION  select * from hsnt2   into cursor hsna
+
+select hsn,"" as desc,unt,sum(qty),0 as ttlv, sum( round((qty*rate*(1+dsc/100)),2) ) as txbl,;
+sum( qty*rate*(1+dsc/100) * tax/100* iif(iflg,1,0) ) as igst, ;
+sum( qty*rate*(1+dsc/100) * tax/200* iif(iflg,0,1) ) as sgst, ;
+sum( qty*rate*(1+dsc/100) * tax/200* iif(iflg,0,1) ) as cgst from hsna into cursor hsn ;
+ group by hsn
+ 
+ select hsn 
+ brow nowait
+ copy to  (m.fohsn) type deli 
+ 
+
+
+select gst,f1no,f1dt,0 as Iamt, "27-Maha" as POS,"N" as RC,"Regular" ToI,"" as Ecom,tax as txrt,;
+sum( round(amt*(1+dsc/100) ,2) ) as txbl,0 as cess ;
+ from bk2 into cursor b2b group by f1no,tax  where tax > 0
+ 
+ select b2b
+ brow nowait
+ copy to (m.fob2b) type deli
+ 
+ 
+ 

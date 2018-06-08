@@ -1,0 +1,109 @@
+
+Processor is Pentium 
+Select area:  8, Table in Use:       C:\PM\CM\INVNAMEP.DBF    Alias:    INVNAMEP
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\INVNAMEP.CDX                      
+            Index tag:   CODE                                          Collate: Machine                               Key: UPPER(CODE)    
+            Index tag:   NAME                                          Collate: Machine                               Key: UPPER(NAME)    
+            Memo file:         C:\PM\CM\INVNAMEP.FPT
+       Lock(s): <none> 
+
+Select area:  7, Table in Use:     C:\PM\CM\INVSIZE.DBF    Alias:  INVSIZE
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\INVSIZE.CDX                       
+            Index tag:   ASIZE                                         Collate: Machine                               Key: UPPER(SIZ_CODE)    
+            Index tag:   MM                                            Collate: Machine                               Key: MMSIZE  
+            Index tag:   INCH                                          Collate: Machine                               Key: INCHSIZE  
+       Lock(s): <none> 
+
+Select area:  6, Table in Use:      C:\PM\CM\INVMFG.DBF    Alias:   INVMFG
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\INVMFG.CDX                        
+            Index tag:   MFG                                           Collate: Machine                               Key: UPPER(MFG)    
+            Index tag:   NAME                                          Collate: Machine                               Key: UPPER(NAME)    
+       Lock(s): <none> 
+
+Select area:  1, Table in Use:      H:\OBJBILL\OMCSD.DBF    Alias:    OMCSD
+            Code page:   1252 
+            Memo file:        H:\OBJBILL\OMCSD.FPT
+       Lock(s): <none> 
+
+Currently Selected Table:
+Select area:  5, Table in Use:    H:\OBJBILL\ITMS.DBF    Alias:  ITMS
+            Code page:   1252 
+            Memo file:      H:\OBJBILL\ITMS.FPT
+       Lock(s): Exclusive USE 
+
+Select area:  4, Table in Use:      C:\PM\CM\PM172ITM.DBF    Alias:   PM172ITM
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\PM172ITM.CDX                      
+            Index tag:   BNO                                           Collate: Machine                               Key: BNO+SR   
+            Memo file:        C:\PM\CM\PM172ITM.FPT
+       Lock(s): <none> 
+
+Select area:  3, Table in Use:       C:\PM\CM\PM172TOP.DBF     (Readonly) Alias:    QUERY
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\PM172TOP.CDX                      
+     Master Index tag:   BNO                                           Collate: Machine                               Key: F1NO  
+            Index tag:   PNAME                                         Collate: Machine                               Key: PNAME   
+            Memo file:         C:\PM\CM\PM172TOP.FPT
+       Lock(s): <none> 
+
+Select area:  2, Table in Use:       C:\PM\CM\PM172TOP.DBF    Alias:    PM172TOP
+            Code page:   1252 
+  Structural CDX file:   C:\PM\CM\PM172TOP.CDX                      
+            Index tag:   BNO                                           Collate: Machine                               Key: F1NO  
+            Index tag:   PNAME                                         Collate: Machine                               Key: PNAME   
+            Memo file:         C:\PM\CM\PM172TOP.FPT
+       Lock(s): <none> 
+
+Alternate File: H:\OBJBILL\TMP.TXT   
+Procedure file: H:\OBJBILL\OBJMCS.FXP     , H:\OBJBILL\OBJPARTY.FXP     
+File search path: C:\PM\CM  
+Default directory: H:\OBJBILL 
+Print file/device:  
+Work area                                        =    5
+Margin                                           =    0
+Decimals                                         =    2
+Memowidth                                        =   50
+Typeahead                                        =   20
+Blocksize                                        =   64
+Reprocess                                        =       0
+Refresh                                          = 0,5 SECONDS   
+DDE Timeout                                      =    2000
+DDE Safety                                       = on
+
+Code page:   1252
+Collating sequence:  Machine
+Compiler code page:   1252
+Date format: British
+Macro Hot Key =  
+UDF parameters are passed by:   VALUE  
+Textmerge Options 
+          Delimiters:  Left =  <<  Right =  >>
+          Show 
+
+Alternate                                   - on                                      Fullpath                                    - on                         
+ANSI                                        - off                                     Heading                                     - on                         
+Asserts                                     - off                                     Help                                        - on                         
+Bell                                        - on                                      Intensity                                   - on                         
+Blink                                       - on                                      Lock                                        - off                        
+Brstatus                                    - off                                     Logerrors                                   - on                         
+Carry                                       - off                                     Mouse                                       - on                         
+Century                                     - off                                     Multilocks                                  - off                        
+Clear                                       - on                                      Near                                        - off                        
+Color                                       - on                                      Null                                        - off                        
+Compatible                                  - off                                     Optimize                                    - on                         
+Confirm                                     - off                                     Print                                       - off                        
+Console                                     - on                                      Readborder                                  - off                        
+Cursor                                      - on                                      Safety                                      - on                         
+Deleted                                     - off                                     Space                                       - on                         
+Device                                      - scrn                                    Status Bar                                  - on                         
+Echo                                        - on                                      Sysmenus                                    - on                         
+Escape                                      - on                                      Talk                                        - on                         
+Exact                                       - off                                     Textmerge                                   - on                         
+Exclusive                                   - off                                     Title                                       - off                        
+Fields                                      - off                                     Unique                                      - off                        
+Fixed                                       - off                        
+
+

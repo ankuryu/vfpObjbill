@@ -1,0 +1,61 @@
+set path to x:\pm\cm
+set defa to f:\objbill
+select bill.pname as name ,;
+       bill.p_addr as addr,;
+       bill.gst as bgst,;
+       tmas.pname as mpname,;
+       tmas.p_addr as maddr,;
+       cmb(bill.p_addr) as taddr ;
+       from pm172top as bill left join tmpq4 as tmas ;
+       on bill.pname == tmas.pname ;
+       order by tmas.pname ;
+       where !(alltrim(bill.gst) == '');
+       into cursor janog
+ select distinct bgst,name,addr from janog order by name where isnull(janog.mpname) into cursor janog2
+ select bgst,name,addr,pname from janog2 left join tmpq4  on janog2.bgst == tmpq4.gst  into cursor janog4
+ select bgst,name,addr,pname from janog4 where isnull(pname) into cursor janog5
+ select distinct bgst from janog5 into cursor tmp1
+ copy to tmp1.csv type deli
+ create cursor judy1 (;
+      code c(10),;
+      pname c(30),;
+      p_addr m,;
+      gst c(15);
+      )
+  append from tmp1.csv type deli fields gst
+  select janog5
+  inde on bgst to tmp1
+  select judy1
+  set rela to gst into janog5
+  repl all judy1.pname with janog5.name,judy1.p_addr with janog5.addr
+  select tmpq4
+  inde on gst to tmpgst
+  select judy1
+text  
+ set textmerge on to judy1.csv
+ scan
+  ? judy1.code,judy1.pname,judy1.p_addr,judy1.gst
+   text 
+    "<<(judy1.code)>>","<<(judy1.pname)>>","<<(judy1.gst)>>"
+   endtext 
+  endscan
+set textmerge off
+set textmerge to
+
+modi comm judy1.csv
+endtext
+ 
+       
+function cmb(str)
+ private rv,rs
+ *set step onbrow
+ 
+ rs = ''
+ ln = memlines(str)
+ For i = 1 to ln
+   rs = rs + "||"+  mline(str,i)
+ next i
+return rs
+       
+       
+

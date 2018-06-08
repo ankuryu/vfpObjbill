@@ -1,0 +1,202 @@
+clear
+clear all
+close data
+
+wait window "Enter the Company Name (K)amlesh / (P)analal " to m.co
+m.co = upper(m.co)
+
+m.co = iif(m.co="K",".\0003\KC",".\0001\PM")
+m.fn = m.co+"acctldg.txt"
+m.fh = fopen(m.fn,12)  && Open the file for writing
+
+
+set textmerge to (m.co+"tlymasout.xml")
+set textmerge on 
+*set step on
+Dime m.addr[4]
+=Opn_out()
+=fseek(fh,0,2) && move the file to the end of file
+* now open the Bill file for the current year
+fn = "\pm\cm\"+right(m.co,2) + "152top.dbf"
+
+sele 0 && use new area
+use (fn) shared  alia tup 
+go bott
+* set step on
+do while .t.
+  
+  sele tup 
+  brow nomo fields f1no,f1dt,pname,p_addr
+  
+   lk = lastkey()
+   if lk = 27
+    exit
+  endif
+  m.vattin = space(12)
+  store space(60) to m.addr[1],m.addr[2],m.addr[3],m.addr[4]
+  
+  m.ldgname = uppe(tup.pname)
+  m.p_addr = uppe(tup.p_addr)
+  Priv i , ttl
+  ttl = memlines(m.p_addr)
+  For i = 1 to ttl 
+    m.addr[i] = mline(m.p_addr,i)
+    if at("VAT",m.addr[i])> 0
+      m.vattxt = m.addr[i]
+      m.vattin = pars_vatno(m.vattxt)
+    endif
+  next i
+  
+  @ 0,0 clear to 6,60
+  @ 1,0 say " Enter Blank Ledger Name to Exit"
+  @ 3,0 say "Enter Ledger Name" get m.ldgname pict "@!"
+  @ 4,0 say "VAT TIN" get m.vattin pict '@############'
+  @ 6,0 say "Address 1 " get m.addr[1] pict "@!" 
+  @ 7,0 say "Address 2 " get m.addr[2] pict "@!"
+  @ 8,0 Say "Address 3 " get m.addr[3] pict "@!"
+  @ 9,0 say "Address 4 " get m.addr[4] pict "@!"
+  read
+  m.ldgname = alltrim(m.ldgname)
+  m.ldgname_esc = esc_it(m.ldgname)
+  m.vattin= alltrim(m.vattin)
+  if empty(alltrim(m.ldgname))
+    exit
+  endif
+=Out_ldg(m.ldgname_esc,"Sundry Debtors",m.vattin,m.addr)
+@ 5,0 say m.ldgname + "  Generated !!! "
+
+j= m.ldgname+ iif( fputs(fh,'"'+m.ldgname+'","Sundry Debtors"')> 0 ,"Added ","Could not Add")+ " In List"
+@ 6,0 say j
+enddo
+=fclose(fh)
+
+
+=cls_out()
+set textmerge off
+set textmerge to
+return
+
+
+function esc_it
+para st
+Priv rs_str
+&& checks for  XML Escape sequences and substitutes with necessary
+rs_str = esc_chr(st,'&','&amp;')
+rs_str = esc_chr(rs_str,'<','&lt;')
+rs_str = esc_chr(rs_str,'>','&gt;')
+rs_str = esc_chr(rs_str,"'",'&apos;')
+rs_str = esc_chr(rs_str,'"','&quot;')
+
+return rs_str
+
+
+function esc_chr
+Para str,chr,sub
+
+j = 1
+k = 1  && occurence
+do while j > 0
+ j = at(chr,str,k)
+ str = iif(j>0,stuff(str,j,1,sub),str)
+ k = k+1
+enddo 
+return str
+  
+function pars_vatno
+para j
+Priv l,i,rv,o
+rv = ""
+l = len(j)
+for i = 1 to l
+   o = subs(j,i,1)
+   rv = rv + iif(isdig(o),o,"")
+   if len(rv) = 11
+      exit
+   endif
+next i 
+return rv 
+ 
+
+
+
+function Opn_out
+
+Text
+<ENVELOPE>
+<HEADER>
+<TALLYREQUEST>Import Data</TALLYREQUEST>
+</HEADER>
+<BODY>
+<IMPORTDATA>
+<REQUESTDESC>
+<REPORTNAME>All Masters</REPORTNAME>
+<STATICVARIABLES>
+<SVCURRENTCOMPANY>X</SVCURRENTCOMPANY>
+</STATICVARIABLES>
+</REQUESTDESC>
+Endtext
+
+return
+
+function out_ldg
+Para pname,parnt,vatno,adrar
+Text
+<TALLYMESSAGE xmlns:UDF="TallyUDF">
+<LEDGER NAME="<<pname>>" RESERVEDNAME="">
+<NAME.LIST>
+<NAME><<pname>></NAME>
+</NAME.LIST>
+<ADDITIONALNAME><<pname>></ADDITIONALNAME><ISINTERESTON>No</ISINTERESTON>
+ <ADDRESS.LIST>
+Endtext
+For N = 1 to alen(addr)
+  m.ad =alltrim(addr[n])
+  if !empt(m.ad)
+    \ <ADDRESS><<m.ad>></ADDRESS>
+  endif
+next n
+Text
+  </ADDRESS.LIST>
+<VATTINNUMBER><<vatno>></VATTINNUMBER>
+<PARENT><<parnt>></PARENT><CURRENCYNAME>Rs.</CURRENCYNAME>
+<ISBILLWISEON>YES</ISBILLWISEON>
+<ISCOSTCENTRESON>No</ISCOSTCENTRESON>
+<AFFECTSSTOCK>No</AFFECTSSTOCK>
+<ISCONDENSED>No</ISCONDENSED>
+<SORTPOSITION> 1000</SORTPOSITION>
+<INTERESTONBILLWISE>No</INTERESTONBILLWISE>
+<OVERRIDEINTEREST>No</OVERRIDEINTEREST>
+<OVERRIDEADVINTEREST>No</OVERRIDEADVINTEREST>
+<FORPAYROLL>No</FORPAYROLL>
+<PAYTYPE/>
+<SHOWINPAYSLIP>No</SHOWINPAYSLIP>
+<ASSLABRATE>No</ASSLABRATE>
+<TDSDEDUCTEEISSPECIALRATE>No</TDSDEDUCTEEISSPECIALRATE>
+<TDSDEDUCTEEISCACERTIFIED>No</TDSDEDUCTEEISCACERTIFIED>
+<ISTDSAPPLICABLE>No</ISTDSAPPLICABLE>
+<USEFORVAT>No</USEFORVAT>
+<IGNORETDSEXEMPT>No</IGNORETDSEXEMPT>
+<TDSDEDUCTEETYPE/>
+<TAXTYPE/>
+<TAXCLASSIFICATIONNAME/>
+<TDSRATENAME/>
+<FORSERVICETAX>No</FORSERVICETAX>
+<ISINPUTCREDIT>No</ISINPUTCREDIT>
+<ISEXEMPTED>No</ISEXEMPTED>
+<SERVICECATEGORY/>
+</LEDGER>
+</TALLYMESSAGE>
+
+endtext
+return
+
+
+function cls_out()
+Text
+</IMPORTDATA>
+</BODY>
+</ENVELOPE>
+endtext
+
+return
+

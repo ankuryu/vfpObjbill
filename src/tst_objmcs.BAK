@@ -1,0 +1,37 @@
+* Program to test objmcs
+* requires file objmcs.prg which contains class definitions
+*
+
+set proc to objmcs 
+* set proc to objbill additive && (as omcs defined there)
+curdrv = left(sys(16),2)
+
+set path to (curdrv + "\pm\cm")
+clea all
+clear
+omcs1 = createobject("omcs")
+kmcs1 =  createobject("kmcs",omcs1)
+with kmcs1.omcs
+  .mfg = "LDR"
+  .icode = "GATPEG"
+  .asize = "D"
+endwith
+
+kmcs1.gt_mname()
+kmcs1.gt_sname()
+kmcs1.gt_iname()
+
+? "MFG :" + kmcs1.omcsd.mname
+? "ICODE : " + kmcs1.omcsd.idesc
+? "ICODE Detail : " + kmcs1.omcsd.iddesc
+? "Asize : " + kmcs1.omcsd.mmsize
+
+
+  
+
+Define  class omcs as custom
+mfg = ""
+icode = ""
+asize = ""
+
+enddefine
