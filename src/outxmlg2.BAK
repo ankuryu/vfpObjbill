@@ -1,5 +1,6 @@
 * Program to output XML for Taly GST
 * as on 2nd May 2018
+* incorporated export sales to exporter /also address made xml compliant /incorporated vno into remote id for unique signature
 * By Sunil Gandhi
 
 
