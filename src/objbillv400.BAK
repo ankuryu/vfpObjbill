@@ -1,4 +1,4 @@
-* File name  objbillv400.prg
+* File name  objbillv400.prg as on 23/06/18
 * Change.log ->  Work in progress for proforma and quotation as on 27/05/18
 * uses Form frmitm2 upgraded to take into account the calculation for quotes
 * -------------------------------------
@@ -7,10 +7,7 @@
 * uses the following Databases :
 * Uses the following Report Files :
 * By : Sunil Gandhi
-* As On : 1/05/2018 4:30 pm ist
-* version 4.00  changed directory struc and have incorporated for proforma / quot
-*               Various changes to screens in order to take in details for prf/quo
-*               new scree added for tnc of quo
+* As On : 16/04/2018 4:30 pm ist
 * version 3.04 trying to remove the bugs present
 
 
@@ -38,17 +35,15 @@ m.ver = 4.00
 WAIT window  "Starting version " + tran(m.ver, "@l ##.##")
 
 
-dd = sys(5)
 
 
 IF adir(j3,"\\samba24\pmc\pm\cm\*") # 0
-  cmpth =  ',\\samba24\pmc\pm\cm'
+*  SET path to \\samba24\pmc\pm\cm
+  set path to .\src\,.\screens,.\repo,.\data,\\samba24\pmc\pm\cm
 ELSE
 
-  cmpth =  ',f:\pm\daily.0\cm'
+  SET path to f:\pm\daily.0\cm
 ENDIF
-pth = '.,..\data,..\screens,..\repo' + cmpth
-set path to (pth)
 
 
 
@@ -61,6 +56,7 @@ SET procedure to Class_kgst.prg  additive
 
 m.frmtup=NULL
 m.frmitm=NULL
+m.frmtnc=NULL   && Terms & Conditions form for quotation
 m.frmopr = NULL
 
 
@@ -77,6 +73,7 @@ ENDWITH
 
 DO form frmtup name m.frmtup noshow
 DO form frmitm2 name m.frmitm noshow && with pmbknt.kurbil.itmLst
+Do from frmtnc name m.frmtnc noshow 
 SELE 0
 DO form frmopr name m.frmopr noshow  && main operation form for select co,yr bk, & add/edit/print etc
 
@@ -113,18 +110,33 @@ RETURN
 **************************************
 FUNCTION sw_win(shw,hid)  && function to show hide windows
 **************************************
-
-IF shw = "bill"
+Do Case
+Case shw = 'bill'
   =frmitm.hide()
   =frmtup.show()
-
-ELSE
-  SELE itms
-  GO top
+Case shw = 'itm'
+  sele itms
+  go top
   =frmtup.hide()
+  =frmtnc.hide()
   =frmitm.show()
+Case shw = 'tnc'
+  frmitm.hide()
+  frmtnc.show()
+endcase
 
-ENDIF
+  
+*IF shw = "bill"
+*  =frmitm.hide()
+*  =frmtup.show()
+
+*ELSE
+*  SELE itms
+*  GO top
+*  =frmtup.hide()
+*  =frmitm.show()
+
+*ENDIF
 RETURN
 
 ************ Global  Functions to print ***************
@@ -143,7 +155,7 @@ arc[2] = "Triplicate for Seller"
 arc[3] = "Duplicate for Transporter"
 
 PRIV m.Inv_copy,m.curform,m.certify,m.ftype,m.co_name,m.vat_no,m.vgst,m.f_type,m.fname_t,m.fname_i,m.bno
-
+m.bk_type = ""
 m.Inv_copy = arc[cn]
 m.curform = 'vcmgstsql_pln1_2' && this is the current form
 Clear

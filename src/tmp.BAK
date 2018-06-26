@@ -1,0 +1,11 @@
+* in Item2.scr
+tf = thisform
+*set step on
+qflg =  m.pmbknt.bk = '5'
+  with tf
+    .txtExpr.enabled = qflg
+    .edinar.enabled = qflg
+    .spnRnd.enabled = qflg
+    .cmdTnc.enabled = qflg
+  endwith
+  return

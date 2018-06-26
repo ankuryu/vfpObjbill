@@ -47,6 +47,7 @@ DEFINE class kPrty  as custom  &&  Container object for oPrty
 
   FUNCTION get_obj()  && gets the object with pcode from the file
   PRIVATE rv,ar1
+  rv = .f.
   pcode = this.oPrty.pcode
   SELECT * from (this.fname) where pcode == m.pcode into array ar1
   IF type('ar1') # 'U' .and. alen(ar1,1) = 1

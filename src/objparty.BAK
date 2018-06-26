@@ -106,7 +106,8 @@ DEFINE class kPrty  as custom  &&  Container object for oPrty
   this.frmbrw.grdgen.refresh()
   this.frmbrw.show()
   this.frmbrw.txtSrch.setfocus()
-
+  wait window "back to objparty"
+  return
 
   FUNCTION srch_pcode(str) && search and gives array of
 
@@ -126,11 +127,11 @@ DEFINE class kPrty  as custom  &&  Container object for oPrty
   RETURN m.pcode
 
 
- Function Add 
- * Adds new party into the container
- wait window "Adding New...."
- this.rd_obj()
- return
+  FUNCTION Add
+* Adds new party into the container
+  WAIT window "Adding New...."
+  this.rd_obj()
+  RETURN
 
 ENDDEFINE
 
