@@ -7,7 +7,7 @@
 
 =cr_cf()
 =cr_files("KC","18","4",'.\data')
-=cr_files("KC",'18",'5','.\data')
+=cr_files("KC","18",'5','.\data')
 
 FUNCTION cr_cf()
 CREATE cursor cfdtls( co c(2), ;

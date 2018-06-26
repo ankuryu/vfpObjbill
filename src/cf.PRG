@@ -6,7 +6,8 @@
 *lck :
 
 =cr_cf()
-=cr_files("ab","18","5")
+=cr_files("KC","18","4",'.\data')
+=cr_files("KC","18",'5','.\data')
 
 FUNCTION cr_cf()
 CREATE cursor cfdtls( co c(2), ;
@@ -20,8 +21,12 @@ APPEND from cfdtls.csv type deli
 
 RETURN
 
-FUNCTION cr_files(co,yr,bk)
-set step on
+FUNCTION cr_files(co,yr,bk,pth)
+*set step on
+if type(m.pth) # 'C'
+  release m.pth
+  m.pth = './'
+endif
 debugo m.co+m.yr+m.bk
 err = !(isalpha(left(m.co,1)) .and. isalpha(right(m.co,1)) .and. len(m.co) = 2)
          debugout isalph(m.co)
@@ -42,7 +47,7 @@ ELSE
 
 * create file top
   IF !FILE(m.fntop)
-    CREATE table (m.fntop)( ;
+    CREATE table (m.pth + m.fntop)( ;
       f1no c(6),;
       f1dt d,;
       f2no c(6),;
@@ -61,11 +66,13 @@ ELSE
       )
       inde on f1no tag bno
       inde on pname tag pname
+     msg = 'Created .. ' + m.pth + m.fntop
+    wait window msg nowait
   ENDIF
   IF !FILE(m.fnitm)
 * create file itm
 
-    CREATE table (m.fnitm)( ;
+    CREATE table (m.pth + m.fnitm)( ;
       bno c(6),;
       sr c(2) ,;
       TYPE c(3),;
@@ -80,10 +87,13 @@ ELSE
       hsn c(10) ;
       )
       inde on bno+sr tag bno
+     msg = 'Created .. ' + m.pth + m.fnitm
+    wait window msg nowait
+
   ENDIF
   IF !file(m.fninv)
 * create inv file
-    CREATE table (m.fninv)( ;
+    CREATE table (m.pth + m.fninv)( ;
       b_no c(10) ,;
       b_dt d ,;
       mfg c(3) ,;
@@ -103,6 +113,9 @@ ELSE
       inde on iki tag ki
       inde on icode+asize+mfg tag csm
       inde on mfg + icode + asize tag mcs
+     msg = 'Created .. ' + m.pth + m.fninv
+    wait window msg nowait
+
   ENDIF
 ENDIF &&  invalid file name
 RETURN .t.
