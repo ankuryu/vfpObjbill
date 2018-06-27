@@ -15,7 +15,7 @@ dfdrv = sys(5)
 dfpth = dfdrv+ "\objbill"
 set path to
 if file("\\samba24\pmc\pm\cm\cf.dbf")
-  dfpth2 = "\\samba24\pmc\ ; \\samba24\pmc\pm\cm"
+  dfpth2 = "\\samba24\pmc\, \\samba24\pmc\pm\cm,.\data,.\src"
 else
   dfpth2 = "c: ; c:\pm\cm"
 endif
