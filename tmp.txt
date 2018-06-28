@@ -1,0 +1,15 @@
+
+Structure for table:             F:\OBJBILL\TMPQ4.DBF
+Number of data records:       410     
+Date of last update:          05/30/18
+Memo file block size:         64
+ Code Page:                   1252    
+                Field        Field Name                                                         Type                                                                                                Width                          Dec                   Index   Collate                                          Nulls
+                    1        PCODE                                                              Character                                                                                              10                                                                                                            No
+                    2        PNAME                                                              Character                                                                                              30                                                  Asc   Machine                                             No
+                    3        P_ADDR                                                             Memo                                                                                                    4                                                                                                            No
+                    4        MVAT                                                               Character                                                                                              12                                                                                                            No
+                    5        PTLY                                                               Character                                                                                              40                                                                                                            No
+                    6        PAN                                                                Character                                                                                              10                                                                                                            No
+                    7        GST                                                                Character                                                                                              15                                                                                                            No
+** Total **                                                                                                                                                                                           122

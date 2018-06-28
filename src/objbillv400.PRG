@@ -222,7 +222,7 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
   ENDIF
 
   PRIVATE m.dst,m.trspt,m.lrno,m.lr_dt,m.d_dtl
-
+* set step on
   STORE '' TO m.dst,m.trspt,m.lrno,m.lr_dt
 
   IF MEMLINE(m.d_dtl) > 0
@@ -322,7 +322,8 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
 **************************************
 FUNCTION gen_tnc
 **************************************
-  m.lrno = IIF(m.lrno # '',m.lrno ,'01020101020303')
+
+  m.lrno = IIF(m.lrno == '','01020101020303',m.lrno )
   SELECT dscr FROM tncmas WHERE tnc = 'TC01' INTO ARRAY tnc01
   SELECT dscr FROM tncmas WHERE tnc = 'TC02' INTO ARRAY tnc02
   SELECT dscr FROM tncmas WHERE tnc = 'TC03' INTO ARRAY tnc03
