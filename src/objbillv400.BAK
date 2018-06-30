@@ -222,7 +222,7 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
   ENDIF
 
   PRIVATE m.dst,m.trspt,m.lrno,m.lr_dt,m.d_dtl
-set step on
+* set step on
   STORE '' TO m.dst,m.trspt,m.lrno,m.lr_dt
 
   IF MEMLINE(m.d_dtl) > 0
@@ -571,6 +571,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 
   FUNCTION putBill(pbno)  && Puts the current bill on storage pbno
     WAIT WINDOW "Putting Bill" NOWAIT
+    set step on
 * check if bno exists ?  if so  use sql  update else sql insert
     SELECT f1no FROM (THIS.fname)  WHERE f1no = m.pbno INTO ARRAY arbno
 
@@ -976,8 +977,8 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
       ot = THIS.lstItm[n]
       WITH ot
         ot.bno = THIS.obill.bno  && set the billno for all items
-* If inv item update  inv file
-        IF ot.typ =="INV"
+* If inv item update  inv file only if it is cash memo,challan, or bill
+        IF ot.typ =="INV" .and. this.kntBill.bk  < '4'
 * Upate/insert the inv file
           WAIT WINDOW "Updating Inventory..."
 * set step on  &&  to check why new records are being added for same itme when edited
