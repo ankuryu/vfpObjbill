@@ -1,0 +1,52 @@
+LEADER Gate Valve BS: 1414 / API: 600 Class - 600CCS (ASTM A 216 GR WCB) Bolted Bonnet, O/S & Yoke Type, Rising Stem Renewable Seat Solid or Flexible Wedge S (ASTM A: 276 TYPE 410 OR it Eq) 
+Flanges as per ASME B 16.5 CL - 600 R.F. (Drilled) Serrated BTP - 150 Bar Hyd. STP - 110 Bar Hyd. 6.9 Bar AIR.
+
+PRODUCT : LEADER FORGED  BRASS GATE VALVE 
+Type of Pattern : Standard Pattern 
+Product Standard : IS:13114
+Pressure/Class Rating : 2 MPA
+Body Material Cum Std. : FORGED BRASS
+(IS:6912 GR FLB)
+Product Description : Screwed in Bonnet, Inside
+: screw, non rising stem
+Type of Seat : Integral Seat
+Type of Wedge : Solid Wedge,
+Trim : Cu-alloy
+Gland Packing : Lubricated Hemp and Jute
+End Details : Screwed female threads to
+IS:554 (Parallel)
+Test Pressure : B.T.P. - 3.0 MPa Hyd.
+: S.T.P. - 2.2 MPa Hyd.
+
+
+
+
+PRODUCT : LEADER GATE VALVE 
+Product Standard : IS:778 
+Pressure/Class Rating : Class - 1 
+Body Material Cum Std. : GM (IS 318 LTB 2) 
+Product Description : Screwed in Bonnet, Inside 
+screw, Non rising Stem 
+Type of Seat : Integral Seat 
+Type of Wedge : Solid Wedge 
+Trim : Cu - alloy 
+Gland Packing : Lubricated Hemp and Jute 
+End Details : Screwed female threads to IS:554 (Parallel)
+Test Pressure : B.T.P. - 1.5 MPa Hyd.
+: S.T.P. - 1.0 MPa Hyd.
+
+PRODUCT : LEADER GATE VALVE 
+Product Standard : IS:778 
+Pressure/Class Rating : Class - 1 
+Body Material Cum Std. : GM (IS 318 LTB 2) 
+Product Description : Screwed in Bonnet, Inside 
+screw, Rising Stem 
+Type of Seat : Integral Seat 
+Type of Wedge : Solid Wedge 
+Trim : Cu - alloy 
+Gland Packing : Lubricated Hemp and Jute 
+End Details : Screwed female threads to IS:554 (Parallel)
+Test Pressure : B.T.P. - 1.5 MPa Hyd.
+S.T.P. - 1.0 MPa Hyd.
+
+

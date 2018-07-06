@@ -30,7 +30,7 @@ endif
 m.bk = "2"
 && m.mth = 8
 m.yr = "18"
-m.year = m.year(date()) -2000
+m.year = year(date()) -2000
 m.year = m.year - iif(between(month(date()),4,12),0,1)
 m.yr =alltrim(str(m.year))
 m.ftup2 = m.co + m.yr + m.bk + "top"

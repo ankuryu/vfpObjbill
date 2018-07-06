@@ -29,7 +29,10 @@ endif
 && m.co = 'PM'
 m.bk = "2"
 && m.mth = 8
-m.yr = "17"
+m.yr = "18"
+m.year = m.year(date()) -2000
+m.year = m.year - iif(between(month(date()),4,12),0,1)
+m.yr =alltrim(str(m.year))
 m.ftup2 = m.co + m.yr + m.bk + "top"
 m.fitm2 = left(m.ftup2, 5) + "itm"
 m.fob2b = left(m.ftup2,5) + tran(mth, '@l ##') + "b2b.csv"
