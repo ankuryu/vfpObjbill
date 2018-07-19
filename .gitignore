@@ -1,5 +1,7 @@
 *.fxp
 *.err
+*.csv
+*.txt
 data/
 out/
 xml/
