@@ -13,6 +13,20 @@
 *
 
 para  pco,pmth
+
+clea
+? "*"
+? "*"
+? "*  Usage :  do src/gtr1v?  with 'CO', mm  "
+? "*   Please note mm = 1 for jan and is a decimal not string "
+? "*"
+? "*" 
+msg = "Press (Y) to continue any other key to exit "
+wait window msg to yn
+if uppe(yn) # 'Y'
+  return
+endif
+
 m.co = iif(type('pco')="C" .and. m.pco $ 'PMKC' ,m.pco,"PM") && Default to PM if no para
 m.mth = iif(type('pmth')='N' .and. between(m.pmth,0,12), m.pmth, month(date()-1)) && defualt to prev month of date
 
@@ -30,7 +44,7 @@ endif
 m.bk = "2"
 && m.mth = 8
 m.yr = "18"
-m.year = m.year(date()) -2000
+m.year = year(date()) -2000
 m.year = m.year - iif(between(month(date()),4,12),0,1)
 m.yr =alltrim(str(m.year))
 m.ftup2 = m.co + m.yr + m.bk + "top"

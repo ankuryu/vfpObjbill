@@ -1,4 +1,4 @@
-* File gtr1V2.prg
+* File gtr1V3.prg
 * VERSION 2 DOESNT TAKE CM HSN , SINCE PROBLEM WITH SQL IN FOXPRO
 * creates the gtr1 from the sales / cash memo invoice file
 * as on 16Sep 2017
@@ -13,6 +13,20 @@
 *
 
 para  pco,pmth
+
+clea
+? "*"
+? "*"
+? "*  Usage :  do src/gtr1v?  with 'CO', mm  "
+? "*   Please note mm = 1 for jan and is a decimal not string "
+? "*"
+? "*" 
+msg = "Press (Y) to continue any other key to exit "
+wait window msg to yn
+if uppe(yn) # 'Y'
+  return
+endif
+
 m.co = iif(type('pco')="C" .and. m.pco $ 'PMKC' ,m.pco,"PM") && Default to PM if no para
 m.mth = iif(type('pmth')='N' .and. between(m.pmth,0,12), m.pmth, month(date()-1)) && defualt to prev month of date
 

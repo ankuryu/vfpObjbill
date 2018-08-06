@@ -42,8 +42,8 @@ sum( amt*(1+dsc/100) * tax/200* iif(sflg,1,0) ) as sgst, ;
 sum( amt*(1+dsc/100) * tax/200* iif(sflg,1,0) ) as cgst from hsnall into cursor hsnfin ;
  group by hsn
  
- ofnfin = "thsnfin" + tran(mth,'@l ##')+".csv"
- ofnall = "thsnall" + tran(mth,'@l ##')+".csv"
+ ofnfin = m.co + "hsnfin" + tran(mth,'@l ##')+".csv"
+ ofnall = m.co + "thsnall" + tran(mth,'@l ##')+".csv"
  copy to (ofnfin) type deli
  selec hsnall
  copy to (ofnall) type deli

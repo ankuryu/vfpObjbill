@@ -15,7 +15,7 @@ fnbtup = m.co + m.yr + "2top"
 fnctup = m.co + m.yr + "1top"
  if type('mth') # 'N'
    mth = month(date())
- // mth = alltrim(str(mthn))
+ * mth = alltrim(str(mthn))
 
  endif
  set path to x:\pm\cm 
