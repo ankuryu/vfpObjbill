@@ -9,66 +9,6 @@
 * master and billspayable are generated from xml file
 * 
 
-text
-- <TALLYMESSAGE xmlns:UDF="TallyUDF">
-- <VOUCHER REMOTEID="5ac20ae0-d3f7-11da-ae64-000d88457808-00009a59" VCHTYPE="Payment" ACTION="Create">
-- <BANKERSDATE.LIST>
-  <BANKERSDATE>20160331</BANKERSDATE> 
-  </BANKERSDATE.LIST>
-  <DATE>20160331</DATE> 
-  <GUID>5ac20ae0-d3f7-11da-ae64-000d88457808-00009a59</GUID> 
-  <NARRATION>Ch. No. :INTEREST FOR THE PRIOED 29/2/2016 TO 30/03/2016</NARRATION> 
-  <VOUCHERTYPENAME>Payment</VOUCHERTYPENAME> 
-  <VOUCHERNUMBER>590</VOUCHERNUMBER> 
-  <PARTYLEDGERNAME>AMCO BANK (HYPO) 20229 (8.LAK)</PARTYLEDGERNAME> 
-  <CSTFORMISSUETYPE /> 
-  <CSTFORMRECVTYPE /> 
-  <FBTPAYMENTTYPE>Default</FBTPAYMENTTYPE> 
-  <VCHGSTCLASS /> 
-  <DIFFACTUALQTY>No</DIFFACTUALQTY> 
-  <AUDITED>No</AUDITED> 
-  <FORJOBCOSTING>No</FORJOBCOSTING> 
-  <ISOPTIONAL>No</ISOPTIONAL> 
-  <EFFECTIVEDATE>20160331</EFFECTIVEDATE> 
-  <USEFORINTEREST>No</USEFORINTEREST> 
-  <USEFORGAINLOSS>No</USEFORGAINLOSS> 
-  <USEFORGODOWNTRANSFER>No</USEFORGODOWNTRANSFER> 
-  <USEFORCOMPOUND>No</USEFORCOMPOUND> 
-  <ALTERID>71506</ALTERID> 
-  <EXCISEOPENING>No</EXCISEOPENING> 
-  <ISCANCELLED>No</ISCANCELLED> 
-  <HASCASHFLOW>Yes</HASCASHFLOW> 
-  <ISPOSTDATED>No</ISPOSTDATED> 
-  <USETRACKINGNUMBER>No</USETRACKINGNUMBER> 
-  <ISINVOICE>No</ISINVOICE> 
-  <MFGJOURNAL>No</MFGJOURNAL> 
-  <HASDISCOUNTS>No</HASDISCOUNTS> 
-  <ASPAYSLIP>No</ASPAYSLIP> 
-  <ISDELETED>No</ISDELETED> 
-  <ASORIGINAL>No</ASORIGINAL> 
-- <ALLLEDGERENTRIES.LIST>
-  <LEDGERNAME>INT. On O.D. (A/C AMCO HYPO.[20229.]</LEDGERNAME> 
-  <GSTCLASS /> 
-  <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE> 
-  <LEDGERFROMITEM>No</LEDGERFROMITEM> 
-  <REMOVEZEROENTRIES>No</REMOVEZEROENTRIES> 
-  <ISPARTYLEDGER>No</ISPARTYLEDGER> 
-  <AMOUNT>-932.00</AMOUNT> 
-  </ALLLEDGERENTRIES.LIST>
-- <ALLLEDGERENTRIES.LIST>
-  <LEDGERNAME>AMCO BANK (HYPO) 20229 (8.LAK)</LEDGERNAME> 
-  <GSTCLASS /> 
-  <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE> 
-  <LEDGERFROMITEM>No</LEDGERFROMITEM> 
-  <REMOVEZEROENTRIES>No</REMOVEZEROENTRIES> 
-  <ISPARTYLEDGER>Yes</ISPARTYLEDGER> 
-  <AMOUNT>932.00</AMOUNT> 
-  </ALLLEDGERENTRIES.LIST>
-  </VOUCHER>
-  </TALLYMESSAGE>
-endtext
-
-
 
 close data
 clea all
@@ -80,57 +20,76 @@ set conf on
 
 
 
+text
+*set step on
+m.year = '13' 
+m.yr = year(date())- iif(month(date())<4,1,0)
+m.year = right(str(m.yr),2)
+if month(date()) = 4
+  msg = "Press (1) for " + str(m.yr-1) + " (2) for Year " + str(yr)
+  wait window msg to ans
+  m.year = right(str(iif( ans = "1" , m.yr -1,m.yr)),2)
+endif
+endtext
 
-
+frm1 = createobje("form")
+ =fill_frm1()
+ frm1.show
+ read events
+ frm1= NULL
+ activate screen
  
+ if empt(m.co) .and. empt(m.bk) 
+   return 
+ endif
+m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")+ 'master.sdf'
+m.pth2 = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
+* Now get the master ledgers of Tally72 for use with Accounts
+close data
+wait window "Import New Ledger Data ? (Y/N)" to yn
+if uppe(yn) = 'Y'
+  do tly7ldg with "Sundry Debtors" ,m.pth && gives a list of accounts in acctldg and path
+else
+  if !rtrv_ldg()
+    wait window "Master File Does Not Exist !  IMport Data and TRY"
+    return
+  endif  
+endif    
+select acctldg
+if reccount() > 0
+  index to tmp1 on uppe(lname)
+endif
 
- m.ofil = "tmp.xml"
- set textmerge to (m.ofil)
- set textmerge on
-use cheq && 
+ m.ofil = m.co + m.bk  + "tmp.xml"
+ m.ftop = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'top.dbf'
+ m.fitm = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'itm.dbf'
+ m.company = m.co
+ ? m.ftop
+ ? m.fitm
+ wait
+set textmerge to (m.ofil)
+set textmerge on
+
+
+
+
+Dime m.addr[4] && Address Array to parse the address and VAT from the Invoice for new Master.xml
+sele 0
+use (m.ftop) alia tup
 go bott
-
-* use the latest payable file and populate it.
-create cursor pybls  (dt c(12),vno c(40),pname c(60),amt n(12,2),dudt c(12),ddays c(4))
-append from x:\tally72\data\0001\pmpybl.txt type deli
-
-bnkv1 = createobject("bnkvou")   && create the bank voucher
 vou1 = createobject("t9vou")
-Dime bnkname[5,2]
-bnkname[1,1] =  "AMCOFD02"            && AMCOHYPO
-bnkname[1,2] =  "AMCO BANK (HYPO) 20229 (8.LAK)"
-bnkname[2,1] =  "AMCOHYPO"            && AMCOFD01
-bnkname[2,2] =  "AMCO BANK F/D.O/D 30511.[7.44]"
-bnkname[3,1] =  "CBIFD01"            && CBIFD01
-bnkname[3,2] =  "CENTRAL BANK OF INDIA 1162091145."
-bnkname[4,1] =  "UBIFD"               && UBIFDOD
-bnkname[4,2] =  "UBI (FD/OD) A/c 318404010132181"
-bnkname[5,1] =  "UBICA"           && UBICA
-bnkname[5,2] =  "Union Bank of India. C/A  318401010136876"
-
-
-*oKont = createobj("ktlym")  && create the master account container object
-*oKont.co = m.co             && set the company name.
-*oKont.gen_fname()           && generate the filename for xml
-*vou1.out_hdr()
+oKont = createobj("ktlym")  && create the master account container object
+oKont.co = m.co             && set the company name.
+oKont.gen_fname()           && generate the filename for xml
+vou1.out_hdr()
 
 ****************************THE LOOP****************************************
 
 Do while .t.
-  sele cheq
-  brow nomo 
-  if lastkey() = 27
-     exit
-  endif
-
-  scatter memvar
-  * search for  the party existing
-  * =ini_txtmrgv()   && simply prepares the date in character format
-  * set step on
-  *vou1 = createobject("t9vou")
+  vou1 = createobject("t9vou")
    =out_vou()
    
-  sele cheq  
+  sele tup   
 Enddo
 
 *****************************  EndofMAINLLOOP ******************************
@@ -139,7 +98,27 @@ vou1.out_ftr()
 vou1 = NULL 
 set textmerge off
 set textmerge to
+* Now output the generated new masterrecords if new records have been added
+if oKont.knt > 0
+?
+ ? "Creating the master File for New Parties......"
+  oKont.outxml()
+ ? "Done ................."
+  
+ ? "Updating the Ledgers.........."
+  oKont.upd_ldgr()
+ ? "Done............."
+ ?
+endif  
 
+m.co = m.company
+wait wind "Do you want to save the Master Data ? (Y/N)" to yn
+if uppe(yn) = "Y"
+  select acctldg
+m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
+  ? (m.pth+m.co+"acctldg.txt")
+   copy to (m.pth+m.co+"acctldg.txt") type deli
+endif
 set path to   (oKont.cur_pth)    && reset to the old path
 oKont = NULL                     && remove the object
 close all
@@ -148,62 +127,6 @@ close all
 *************************************************************************
 *                     MAIN   LOOP    ENDS  HERE                         *
 *************************************************************************
-
-
-******************************
-Function out_vou
-******************************
-
-
-vou1.voudtl = "Type = 'Payment' action = 'Create'"
-                 No
-vou1.isopt = .f.  && is optional
-
-vou1.vtypeN = "Payment"
-vou1.dt = m.dt
-
-vou1.dt = m.dt
-
-vou1.iscanc = .f.
-
-vou1.usetrno = .f.
-
-vou1.ispstdtd = .f.
-
-vou1.vno = m.f1no
-
-m.esc_itLdgrname = alltrim(esc_it(m.ldgrname))
-vou1.pldg = m.esc_itldgrname
-vou1.nar = "Auto on " + dtoc(date())+ " Party : "+ esc_it(m.pname)
-* Now for each Entry send the All ledger Entry
-
- m.ale = vou1.add_ldgent()
-
- m.ale.isdpos = .t.
-
-m.esc_pname = esc_it(upper(m.pname))  && change to upper name and then esc it else the esc char get changed to upper making it invalid
-* m.ale.ldgname = iif(m.bk = 'CM',UPPE('Counter Sales'),m.esc_pname) &&'Counter Sales'  && this is the Ledger name
-* ale[3] = -m.amt   && amount of the ledger 
- m.ale.amt = -m.amt 
- 
-
-m.bla =  m.ale.add_bau()
-
-m.bla.aname = m.f1no
-
-m.bla.atype = 'New Ref'
-
-m.bla.amt = - m.amt
-
-
-
- 
-
-* send a blank carraige return to seperate the next entry
-*\
-vou1.out_xml()
-return && out_vou
-
 
 
 
@@ -347,14 +270,14 @@ function get_chq(bnkc, chqn)  && bankcode and chqno
  select co,name,dt,bnk,chqno,amt,nar,db_ac from (this.chqfnam) as chq where m.bnkc = chq.bnk .and. chq.chqno == this.chqno into array ar1
  if _tally = 1  && only one entry should be there
    with this
-    .co       = ar1[1] && co
-    .party    = ar1[2] && pname
-    .dt       = ar1[3] && dt
-    .bnk      = ar1[4] && bankcode
-    .chqno    = ar1[5] && chqno
-    .amt      = ar1[6] && amt
-    .nar      = ar1[7] && nar
-    .acldg[1] = ar1[8] && debit a/c
+    .co       = ar1[1]
+    .party    = ar1[2]
+    .dt       = ar1[3]
+    .bnk      = ar1[4]
+    .chqno    = ar1[5]
+    .amt      = ar1[6]
+    .nar      = ar1[7]
+    .acldg[1] = ar1[8]
    endwith
    rv = .t.
  else
@@ -601,7 +524,7 @@ Define Class bau as custom   && Bill Allocation Unit
 *********************************************
 aname = ""
 cr = 0
-atype = ""
+ atype = ""
 amt = ""
 
 *============================================
@@ -609,16 +532,6 @@ Enddefine &&bau
 *============================================
 
 
-*********************************************
-Define Class taxcls as custom  && Vat Classification *
-*********************************************
-
-tname = ""
-tval = 0
-
-*============================================
-Enddefine && taxcls
-*============================================
 
 * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 * 
@@ -908,4 +821,87 @@ enddo
 return str
 
 
-enddefine
+
+* * * * * * * * * * *
+function pars_vatno(j)  && parse the VAT No in the string and return it
+* * * * * * * * * * *
+
+ Priv l,i,rv,o
+ rv = ""
+ l = len(j)
+ for i = 1 to l
+   o = subs(j,i,1)
+   rv = rv + iif(isdig(o),o,"")
+   if len(rv) = 11
+      exit
+   endif
+ next i 
+ return rv 
+  
+Enddefine
+
+*------------------------------------------------------------------------------
+
+
+
+*  Classes from outsdf2
+
+Define Class cboBk as  Combobox
+    height = 24
+    width = 60
+    top = 12
+    left =  120
+    rowsourcetype = 1
+    visible = .t.
+    rowsource = 'CM,BILL'
+    TabIndex = 2
+    controlsource = "bk"
+    
+Enddefine
+
+Define Class cboCo as ComboBox
+    height = 24
+    width = 60
+    top = 12
+    left =  24
+    rowsourcetype = 1
+    visible = .t.
+    rowsource = 'PM,KC'
+    TabIndex = 1
+    controlsource = "co"
+Enddefine
+
+Define Class cmdCanc as Commandbutton
+    height = 30
+    width = 50
+    top = 48
+    left =  156
+    caption = "Cancel"
+    Cancel = .t.
+    visible = .t.
+    TabIndex = 4
+  Proc Click
+    m.co = ""
+    m.bk = ""
+    thisform.hide
+    clear events
+    return  
+  Endproc  
+Enddefine
+
+Define Class cmdOk as commandbutton
+    height = 30
+    width = 50
+    top = 48
+    left = 60   && 156
+    caption = "OK"
+    default = .t.
+    visible = .t.
+    TabIndex = 3
+ Proc click
+   thisform.hide
+   clear events
+   return
+ Endproc
+
+Enddefine

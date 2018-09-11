@@ -2,6 +2,7 @@
 *.err
 *.csv
 *.txt
+*.xml
 data/
 out/
 xml/
