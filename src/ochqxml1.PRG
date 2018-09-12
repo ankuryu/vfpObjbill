@@ -1,5 +1,5 @@
 * Filename ochqxml1.prg
-* As on  29May2017
+* As on  12Sep2018
 * Uses the cheq file  Cheq.dbf  and generates an XML file for import into Tally9
 * Outputs file XXOutChq.xml
 * 
@@ -21,8 +21,7 @@ set conf on
 
 
 text
-*set step on
-m.year = '13' 
+m.year = '18' 
 m.yr = year(date())- iif(month(date())<4,1,0)
 m.year = right(str(m.yr),2)
 if month(date()) = 4
@@ -60,13 +59,8 @@ if reccount() > 0
   index to tmp1 on uppe(lname)
 endif
 
- m.ofil = m.co + m.bk  + "tmp.xml"
- m.ftop = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'top.dbf'
- m.fitm = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'itm.dbf'
+ m.ofil = m.co  + "chq.xml"
  m.company = m.co
- ? m.ftop
- ? m.fitm
- wait
 set textmerge to (m.ofil)
 set textmerge on
 
