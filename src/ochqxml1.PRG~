@@ -18,9 +18,40 @@ set century on
 set excl off
 set conf on
 
+text
+
+frm1 = createobje("form")
+ =fill_frm1()
+ frm1.show
+ read events
+ frm1= NULL
+ activate screen
+ 
+ if empt(m.co) .and. empt(m.bk) 
+   return 
+ endif
+m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")+ 'master.sdf'
+m.pth2 = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
+* Now get the master ledgers of Tally72 for use with Accounts
+close data
+wait window "Import New Ledger Data ? (Y/N)" to yn
+if uppe(yn) = 'Y'
+  do tly7ldg with "Sundry Debtors" ,m.pth && gives a list of accounts in acctldg and path
+else
+  if !rtrv_ldg()
+    wait window "Master File Does Not Exist !  IMport Data and TRY"
+    return
+  endif  
+endif    
+select acctldg
+if reccount() > 0
+  index to tmp1 on uppe(lname)
+endif
+
+endtext
 
  m.ofil =  "chq.xml"
-* m.company = m.co
+ m.company = m.co
 set textmerge to (m.ofil)
 set textmerge on
 
@@ -41,12 +72,12 @@ vou1.out_hdr()
 ****************************THE LOOP****************************************
 
 Do while .t.
-  sele chq
+	sele chq
   brow nomo
   * //vou1 = createobject("t9vou")
-	if lastkey() = 27  && Esc pressed   
-		 exit
-    endif
+	if lastkey = chr(27)  && Esc pressed   
+		 break ;
+  endif
 	vou1.dt = chq.dt
  *  //voudtl=""  && Object containing voucher details
 	vou1.guid =""   && Useless for us
@@ -81,6 +112,28 @@ vou1 = NULL
 set textmerge off
 set textmerge to
 * Now output the generated new masterrecords if new records have been added
+if oKont.knt > 0
+?
+ ? "Creating the master File for New Parties......"
+  oKont.outxml()
+ ? "Done ................."
+  
+ ? "Updating the Ledgers.........."
+  oKont.upd_ldgr()
+ ? "Done............."
+ ?
+endif  
+
+m.co = m.company
+wait wind "Do you want to save the Master Data ? (Y/N)" to yn
+if uppe(yn) = "Y"
+  select acctldg
+m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
+  ? (m.pth+m.co+"acctldg.txt")
+   copy to (m.pth+m.co+"acctldg.txt") type deli
+endif
+set path to   (oKont.cur_pth)    && reset to the old path
+oKont = NULL                     && remove the object
 close all
 
 

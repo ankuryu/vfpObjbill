@@ -1,5 +1,5 @@
 * Filename ochqxml1.prg
-* As on  29May2017
+* As on  12Sep2018
 * Uses the cheq file  Cheq.dbf  and generates an XML file for import into Tally9
 * Outputs file XXOutChq.xml
 * 
@@ -8,9 +8,6 @@
 * Reqwuires the  Cheq.dbf and master.dbf for master accounts and billspayable.txt
 * master and billspayable are generated from xml file
 * 
-
-
-
 
 
 close data
@@ -22,77 +19,59 @@ set excl off
 set conf on
 
 
-
-text
-*set step on
-m.year = '13' 
-m.yr = year(date())- iif(month(date())<4,1,0)
-m.year = right(str(m.yr),2)
-if month(date()) = 4
-  msg = "Press (1) for " + str(m.yr-1) + " (2) for Year " + str(yr)
-  wait window msg to ans
-  m.year = right(str(iif( ans = "1" , m.yr -1,m.yr)),2)
-endif
-endtext
-
-frm1 = createobje("form")
- =fill_frm1()
- frm1.show
- read events
- frm1= NULL
- activate screen
- 
- if empt(m.co) .and. empt(m.bk) 
-   return 
- endif
-m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")+ 'master.sdf'
-m.pth2 = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
-* Now get the master ledgers of Tally72 for use with Accounts
-close data
-wait window "Import New Ledger Data ? (Y/N)" to yn
-if uppe(yn) = 'Y'
-  do tly7ldg with "Sundry Debtors" ,m.pth && gives a list of accounts in acctldg and path
-else
-  if !rtrv_ldg()
-    wait window "Master File Does Not Exist !  IMport Data and TRY"
-    return
-  endif  
-endif    
-select acctldg
-if reccount() > 0
-  index to tmp1 on uppe(lname)
-endif
-
- m.ofil = m.co + m.bk  + "tmp.xml"
- m.ftop = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'top.dbf'
- m.fitm = '\pm\cm\'+ m.co + m.year+ iif(m.bk = 'CM','1','2') + 'itm.dbf'
- m.company = m.co
- ? m.ftop
- ? m.fitm
- wait
+ m.ofil =  "chq.xml"
+* m.company = m.co
 set textmerge to (m.ofil)
 set textmerge on
 
-
+m.ftop = "//samba24/pmc/tally/cheq/cheq.dbf"
 
 
 Dime m.addr[4] && Address Array to parse the address and VAT from the Invoice for new Master.xml
+set path to x:\tally\cheq additive
 sele 0
-use (m.ftop) alia tup
+use (m.ftop) alia chq
 go bott
 vou1 = createobject("t9vou")
-oKont = createobj("ktlym")  && create the master account container object
-oKont.co = m.co             && set the company name.
-oKont.gen_fname()           && generate the filename for xml
+* oKont = createobj("ktlym")  && create the master account container object
+* oKont.co = m.co             && set the company name.
+* oKont.gen_fname()           && generate the filename for xml
 vou1.out_hdr()
 
 ****************************THE LOOP****************************************
 
 Do while .t.
-  vou1 = createobject("t9vou")
-   =out_vou()
-   
-  sele tup   
+  sele chq
+  brow nomo
+  * //vou1 = createobject("t9vou")
+	if lastkey() = 27  && Esc pressed   
+		 break 
+    endif
+	vou1.dt = chq.dt
+ *  //voudtl=""  && Object containing voucher details
+	vou1.guid =""   && Useless for us
+	vou1.nar = chq.nar
+	vou1.vtypeN ="Payment"  && Vouchertypename
+	vou1.vno = chq.chqno && Voucher No
+	vou1.pldg = chq.db_ac && Party Ledgername
+	vou1.effdt = vou1.dt
+	ale1 = vou1.add_ldgent()
+  ale1.ldgname = vou1.pldg && for pmt  Db the payee cr the bank/cash db => -amt idpos = yes
+	ale1.amt = -1 * chq.amt
+  ale1.isdpos = 'Yes'
+
+  bau1 = ale1.add_bau()
+	bau1.aname = ""
+	bau1.cr = 0
+	bau1.atype = "On Account"
+	bau1.amt = chq.amt
+
+	ale2 = vou1.add_ldgent()
+  ale2.pname =  get_bnk(chq.bnk)
+	ale2.amt = chq.amt
+	ale2.isdpos = 'No'
+  sele chq   
+  skip 
 Enddo
 
 *****************************  EndofMAINLLOOP ******************************
@@ -102,28 +81,6 @@ vou1 = NULL
 set textmerge off
 set textmerge to
 * Now output the generated new masterrecords if new records have been added
-if oKont.knt > 0
-?
- ? "Creating the master File for New Parties......"
-  oKont.outxml()
- ? "Done ................."
-  
- ? "Updating the Ledgers.........."
-  oKont.upd_ldgr()
- ? "Done............."
- ?
-endif  
-
-m.co = m.company
-wait wind "Do you want to save the Master Data ? (Y/N)" to yn
-if uppe(yn) = "Y"
-  select acctldg
-m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
-  ? (m.pth+m.co+"acctldg.txt")
-   copy to (m.pth+m.co+"acctldg.txt") type deli
-endif
-set path to   (oKont.cur_pth)    && reset to the old path
-oKont = NULL                     && remove the object
 close all
 
 
