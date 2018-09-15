@@ -18,41 +18,10 @@ set century on
 set excl off
 set conf on
 
-text
-
-frm1 = createobje("form")
- =fill_frm1()
- frm1.show
- read events
- frm1= NULL
- activate screen
- 
- if empt(m.co) .and. empt(m.bk) 
-   return 
- endif
-m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")+ 'master.sdf'
-m.pth2 = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
-* Now get the master ledgers of Tally72 for use with Accounts
-close data
-wait window "Import New Ledger Data ? (Y/N)" to yn
-if uppe(yn) = 'Y'
-  do tly7ldg with "Sundry Debtors" ,m.pth && gives a list of accounts in acctldg and path
-else
-  if !rtrv_ldg()
-    wait window "Master File Does Not Exist !  IMport Data and TRY"
-    return
-  endif  
-endif    
-select acctldg
-if reccount() > 0
-  index to tmp1 on uppe(lname)
-endif
-
-endtext
 
  m.ofil =  "chq.xml"
- m.company = m.co
-set textmerge to (m.ofil)
+* m.company = m.co
+set textmerge to  (m.ofil)
 set textmerge on
 
 m.ftop = "//samba24/pmc/tally/cheq/cheq.dbf"
@@ -67,17 +36,18 @@ vou1 = createobject("t9vou")
 * oKont = createobj("ktlym")  && create the master account container object
 * oKont.co = m.co             && set the company name.
 * oKont.gen_fname()           && generate the filename for xml
-vou1.out_hdr()
+* vou1.out_hdr()
 
 ****************************THE LOOP****************************************
 
 Do while .t.
-	sele chq
+  sele chq
+  m.ofil = ''
   brow nomo
   * //vou1 = createobject("t9vou")
-	if lastkey = chr(27)  && Esc pressed   
-		 break ;
-  endif
+	if lastkey() = 27  && Esc pressed   
+		 exit
+    endif
 	vou1.dt = chq.dt
  *  //voudtl=""  && Object containing voucher details
 	vou1.guid =""   && Useless for us
@@ -89,7 +59,7 @@ Do while .t.
 	ale1 = vou1.add_ldgent()
   ale1.ldgname = vou1.pldg && for pmt  Db the payee cr the bank/cash db => -amt idpos = yes
 	ale1.amt = -1 * chq.amt
-  ale1.isdpos = 'Yes'
+  ale1.isdpos = .t.
 
   bau1 = ale1.add_bau()
 	bau1.aname = ""
@@ -98,9 +68,15 @@ Do while .t.
 	bau1.amt = chq.amt
 
 	ale2 = vou1.add_ldgent()
-  ale2.pname =  get_bnk(chq.bnk)
+  ale2.ldgname =  get_bnk(chq.bnk)
 	ale2.amt = chq.amt
-	ale2.isdpos = 'No'
+	ale2.isdpos = .f.
+	vou1.out_xml()
+        set textmerge off
+	set textmerge to
+	append memo chq.voutxt from (m.ofil) overwrite
+	set textmerge to (m.ofil)
+	set textmerge on
   sele chq   
   skip 
 Enddo
@@ -112,28 +88,6 @@ vou1 = NULL
 set textmerge off
 set textmerge to
 * Now output the generated new masterrecords if new records have been added
-if oKont.knt > 0
-?
- ? "Creating the master File for New Parties......"
-  oKont.outxml()
- ? "Done ................."
-  
- ? "Updating the Ledgers.........."
-  oKont.upd_ldgr()
- ? "Done............."
- ?
-endif  
-
-m.co = m.company
-wait wind "Do you want to save the Master Data ? (Y/N)" to yn
-if uppe(yn) = "Y"
-  select acctldg
-m.pth = "\TALLY72\DATA\" + iif(m.co = "PM","0001\","0003\")
-  ? (m.pth+m.co+"acctldg.txt")
-   copy to (m.pth+m.co+"acctldg.txt") type deli
-endif
-set path to   (oKont.cur_pth)    && reset to the old path
-oKont = NULL                     && remove the object
 close all
 
 
@@ -141,6 +95,13 @@ close all
 *                     MAIN   LOOP    ENDS  HERE                         *
 *************************************************************************
 
+
+******************************
+function get_bnk( bnkcd )
+******************************
+
+
+return bnkcd
 
 
 ******************************
@@ -256,7 +217,7 @@ return
 
 
 ******************************************************
-Define   Clase    bnkvou   as    custom
+Define   Class    bnkvou   as    custom
 ******************************************************
 
 

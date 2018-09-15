@@ -21,7 +21,7 @@ set conf on
 
  m.ofil =  "chq.xml"
 * m.company = m.co
-set textmerge to (m.ofil)
+set textmerge to  (m.ofil)
 set textmerge on
 
 m.ftop = "//samba24/pmc/tally/cheq/cheq.dbf"
@@ -36,16 +36,17 @@ vou1 = createobject("t9vou")
 * oKont = createobj("ktlym")  && create the master account container object
 * oKont.co = m.co             && set the company name.
 * oKont.gen_fname()           && generate the filename for xml
-vou1.out_hdr()
+* vou1.out_hdr()
 
 ****************************THE LOOP****************************************
 
 Do while .t.
   sele chq
+  m.ofil = ''
   brow nomo
   * //vou1 = createobject("t9vou")
 	if lastkey() = 27  && Esc pressed   
-		 break 
+		 exit
     endif
 	vou1.dt = chq.dt
  *  //voudtl=""  && Object containing voucher details
@@ -58,7 +59,7 @@ Do while .t.
 	ale1 = vou1.add_ldgent()
   ale1.ldgname = vou1.pldg && for pmt  Db the payee cr the bank/cash db => -amt idpos = yes
 	ale1.amt = -1 * chq.amt
-  ale1.isdpos = 'Yes'
+  ale1.isdpos = .t.
 
   bau1 = ale1.add_bau()
 	bau1.aname = ""
@@ -67,9 +68,15 @@ Do while .t.
 	bau1.amt = chq.amt
 
 	ale2 = vou1.add_ldgent()
-  ale2.pname =  get_bnk(chq.bnk)
+  ale2.ldgname =  get_bnk(chq.bnk)
 	ale2.amt = chq.amt
-	ale2.isdpos = 'No'
+	ale2.isdpos = .f.
+	vou1.out_xml()
+        set textmerge off
+	set textmerge to
+	append chq.voutxt from (m.ofil) overwrite
+	set textmerge to (m.ofil)
+	set textmerge on
   sele chq   
   skip 
 Enddo
@@ -88,6 +95,13 @@ close all
 *                     MAIN   LOOP    ENDS  HERE                         *
 *************************************************************************
 
+
+******************************
+function get_bnk( bnkcd )
+******************************
+
+
+return bnkcd
 
 
 ******************************
@@ -203,7 +217,7 @@ return
 
 
 ******************************************************
-Define   Clase    bnkvou   as    custom
+Define   Class    bnkvou   as    custom
 ******************************************************
 
 
