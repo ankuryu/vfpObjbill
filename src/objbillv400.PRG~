@@ -1025,7 +1025,7 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
 
   FUNCTION get_itms(fno)   && gets items for a particular form
 
-    SELECT * FROM (THIS.fname) order by sr WHERE bno = m.fno INTO ARRAY arz
+    SELECT * FROM (THIS.fname) WHERE bno = m.fno INTO ARRAY arz
     SELE itms
     ZAP
     IF _TALLY > 0

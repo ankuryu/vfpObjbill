@@ -3,6 +3,17 @@
 *.csv
 *.txt
 *.xml
+*.pdf
+*.dbf
+*.cdx
+*.fpt
+*.idx
+*.cdx
+*.csv
+*.tmp
+*.swp
+kcacctldg.*
+*.un~
 data/
 out/
 xml/

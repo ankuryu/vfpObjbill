@@ -1,0 +1,82 @@
+* Program to make Eway Bill Using Data from Invoices and getting other  Data
+*
+* Filename mk_eway.prg
+* as on
+* by Sunil Gandhi
+
+
+close data
+set date brit
+set excl off
+
+Para m.co,m.yr,m.bk,m.bno
+
+
+
+
+Define Class ewaykont as custom
+ewy = NULL  && 
+
+
+
+
+Enddefine
+
+Define Class ewy
+userGstin
+supplyType
+subSupplyType
+docType
+docNo
+docDate
+fromGstin
+fromTrdName
+fromAddr1
+fromAddr2
+fromPlace
+fromPincode
+fromStateCode
+actualFromStateCode
+toGstin
+toTrdName
+toAddr1
+toAddr2
+toPlace
+toPincode
+toStateCode
+actualToStateCode
+totalValue
+cgstValue
+sgstValue
+igstValue
+cessValue
+TotNonAdvolValue
+OthValue
+transMode
+transDistance
+transporterName
+transperterId
+transDocNo
+transDocDate
+vehicleNo
+vehicleType
+mainHsnCode
+itemList = Dime[1]
+
+Enddefine
+
+Define Class ewy_itm as custom
+itemNo = 0
+productName = ""
+producDesc = ""
+hsnCode = 00000000
+quantity = 000000000000
+qtyUnit = "NOS"
+taxableAmount = 0
+sgstRate = 0
+cgstRate = 0
+igstRate = 0
+cessRate = 0
+cessNonAdvol = 0
+
+Enddefine
