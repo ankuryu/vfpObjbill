@@ -7,6 +7,7 @@
 * Param req  co(c), yr(c),bk_src(c), frmno(c), bk_trg(c)
 para co,yr,bk_src,frmno,bk_trg
 close data
+set excl off
 set path to x:\pm\cm,g:\vfpobjbill.git\data,g:\vfpobjbill.git\src
 *set step on
 Priv fntsrc , fnisrc  && source file to copy from
@@ -60,8 +61,8 @@ m.fnitrg = m.bstrg + 'itm.dbf'
     ar1[1,4] = nxdt
     close data
     use (fnttrg) alia tup shared
-   * append blank
-   * gather from ar1 memo
+    append blank
+    gather from ar1 memo
    * list memo like ar1
     use
   else
@@ -71,12 +72,12 @@ m.fnitrg = m.bstrg + 'itm.dbf'
   use (fnitrg) alia itm
   *set step on
   For n = 1 to totitm
-*    append blank
+    append blank
     ir1[n,1] = nxfrm
     totcol = alen(ir1,2)
     acopy(ir1,ir2, aelement(ir1,n,1), totcol)
     dime ir2[totcol]
-*    gather from ir2
+    gather from ir2
      *list memo like ir2
     release ir2
   next n

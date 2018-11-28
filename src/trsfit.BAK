@@ -60,9 +60,9 @@ m.fnitrg = m.bstrg + 'itm.dbf'
     ar1[1,4] = nxdt
     close data
     use (fnttrg) alia tup shared
-   * append blank
-   * gather from ar1 memo
-    list memo like ar1
+    append blank
+    gather from ar1 memo
+   * list memo like ar1
     use
   else
     return err  
@@ -71,16 +71,16 @@ m.fnitrg = m.bstrg + 'itm.dbf'
   use (fnitrg) alia itm
   *set step on
   For n = 1 to totitm
-*    append blank
+    append blank
     ir1[n,1] = nxfrm
     totcol = alen(ir1,2)
     acopy(ir1,ir2, aelement(ir1,n,1), totcol)
     dime ir2[totcol]
-*    gather from ir2
-     list memo like ir2
+    gather from ir2
+     *list memo like ir2
     release ir2
   next n
-  ? "Copied"
+  ? "Copied " + m.frmno + " to " + m.nxfrm + " with items -> " + str(totitm)
   close data
   
 
