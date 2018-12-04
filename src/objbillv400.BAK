@@ -42,7 +42,7 @@ IF ADIR(j3,"\\samba24\pmc\pm\cm\*") # 0
   SET PATH TO .\src\,.\screens,.\REPO,.\DATA,\\samba24\pmc\pm\cm
 ELSE
 
-  SET PATH TO F:\pm\daily.0\cm
+  SET PATH TO F:\pm\daily.0\cm,.\src,.\screens,.\repo,.\data
 ENDIF
 
 
@@ -598,7 +598,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 .kurbil.pcode = m.pcode
 .kurbil.frm = m.frm
 .kurbil.pname = m.pname
-.kurbil.p_addr m.p_addr
+.kurbil.p_addr = m.p_addr
 .kurbil.cr = m.cr
         INSERT INTO(THIS.fname)  (f1no,f1dt,f2no, f2dt,pcode,FORM,pname,p_addr,cr,gst)   VALUES (m.pbno,.kurbil.bdt,.kurbil.f2no,.kurbil.f2dt,.kurbil.pcode,.kurbil.frm,.kurbil.pname,.kurbil.p_addr,.kurbil.cr,.kurbil.gst)
       ENDWITH
@@ -1025,7 +1025,7 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
 
   FUNCTION get_itms(fno)   && gets items for a particular form
 
-    SELECT * FROM (THIS.fname) WHERE bno = m.fno INTO ARRAY arz
+    SELECT * FROM (THIS.fname) order by sr WHERE bno = m.fno INTO ARRAY arz
     SELE itms
     ZAP
     IF _TALLY > 0

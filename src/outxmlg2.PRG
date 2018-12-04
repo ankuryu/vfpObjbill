@@ -759,8 +759,8 @@ function upd_ldgr  && Updates the ledger used during outxml
    if !this.otlym.pmvat == ""
     j= this.otlym.pname + iif( fputs(fh,'"'+this.otlym.pname+'","Sundry Debtors"')> 0 ,"Added ","Could not Add")+ " In List"
     ? j
-    if Right(j,5) = "Added"
-      insert into acctldg (lname,lparent) values (otlym.pname,"Sundry Debtors") 
+    if Right(j,5) # "Added"
+      insert into acctldg (lname,lparent) values (this.otlym.pname,"Sundry Debtors") 
     endif
    endif 
  next i   

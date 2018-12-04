@@ -15,7 +15,7 @@ dfdrv = sys(5)
 dfpth = dfdrv+ "\objbill"
 set path to
 if file("\\samba24\pmc\pm\cm\cf.dbf")
-  dfpth2 = "\\samba24\pmc\ ; \\samba24\pmc\pm\cm"
+  dfpth2 = "\\samba24\pmc\, \\samba24\pmc\pm\cm,.\data,.\src"
 else
   dfpth2 = "c: ; c:\pm\cm"
 endif
@@ -752,19 +752,19 @@ function upd_ldgr  && Updates the ledger used during outxml
 *set step on
  acti scree
  Priv fh,i,j
- fh = fopen( this.ldgfname,12) && Open the file for writing
- =fseek(fh,0,2) && move the file to the end of the file
+* fh = fopen( this.ldgfname,12) && Open the file for writing
+* =fseek(fh,0,2) && move the file to the end of the file
  for i = 1 to this.knt
    this.otlym = this.kntlst[i]
    if !this.otlym.pmvat == ""
     j= this.otlym.pname + iif( fputs(fh,'"'+this.otlym.pname+'","Sundry Debtors"')> 0 ,"Added ","Could not Add")+ " In List"
     ? j
-    if Right(j,5) = "Added"
-      insert into acctldg (lname,lparent) values (otlym.pname,"Sundry Debtors") 
+    if Right(j,5) # "Added"
+      insert into acctldg (lname,lparent) values (this.otlym.pname,"Sundry Debtors") 
     endif
    endif 
  next i   
- =fclose(fh)
+* =fclose(fh)
 return
 
 

@@ -41,8 +41,7 @@ IF ADIR(j3,"\\samba24\pmc\pm\cm\*") # 0
 *  SET path to \\samba24\pmc\pm\cm
   SET PATH TO .\src\,.\screens,.\REPO,.\DATA,\\samba24\pmc\pm\cm
 ELSE
-
-  SET PATH TO F:\pm\daily.0\cm
+  SET PATH TO d:\pm\cm,.\src,.\screens,.\repo,.\data
 ENDIF
 
 
