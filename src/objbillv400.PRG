@@ -829,8 +829,9 @@ DEFIN CLASS bill AS CUSTOM   && Individual Bill obj
     THIS.pobj = THIS.kprty.oPrty                     && set the party object on the bill
 
 
-  FUNCTION clnit
+  FUNCTION clnit && Clean the Bill features
     WITH THIS
+
       .bno = SPAC(6)
       .bdt = DATE()
       .f2no = .bno
@@ -840,17 +841,19 @@ DEFIN CLASS bill AS CUSTOM   && Individual Bill obj
       .frm  = "NA"
       .pname = ""
       store '' to m.f2no
-      store ctod('') to m.f2dt
+      store ctod('') to m.f2dt,m.orddt,m.lrdt
       store '' to m.pname,m.p_addr,m.pcode,m.gst
-      store '' to m.ordno,m.orddt
+      store '' to m.ordno
       store '' to m.trspt,m.dest
-      store '' to m.lrno,m.lrdt
+      store '' to m.lrno
       .p_addr = ""
       m.p_addr = ""
       .cr = 0
       .co = ""
       .gst = ""
-      .itmlst.clnit()
+      .oOrd.clnit()       &&   Added on 10/1/19
+      .oDlv.clnit()       &&     --do--
+      .itmlst.clnit()  && Clean the items
     ENDWITH
     RETURN
 
@@ -901,7 +904,7 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
 
   FUNCTION clnit
     WITH THIS
-      DIME lstItm[1] = NULL
+      DIME .lstItm[1] = NULL  && <- error had forgotten the "."
       .itmknt = 0
       .bno = '000000'
       .oitm.clnit()
