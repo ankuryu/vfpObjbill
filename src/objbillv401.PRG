@@ -30,7 +30,7 @@ CLEA WINDOW ALL
 CLEAR ALL
 SET EXCL OFF
 SET DATE brit
-m.ver = 4.00
+m.ver = 4.01
 * added IEC code in the printout
 WAIT WINDOW  "Starting version " + TRAN(m.ver, "@l ##.##")
 
@@ -40,6 +40,7 @@ WAIT WINDOW  "Starting version " + TRAN(m.ver, "@l ##.##")
 IF ADIR(j3,"\\samba24\pmc\pm\cm\*") # 0
 *  SET path to \\samba24\pmc\pm\cm
   SET PATH TO .\src\,.\screens,.\REPO,.\DATA,\\samba24\pmc\pm\cm
+  release memvar like j3
 ELSE
   SET PATH TO d:\pm\cm,.\src,.\screens,.\repo,.\data
 ENDIF
@@ -156,7 +157,7 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
   PRIV m.Inv_copy,m.curform,m.certify,m.ftype,m.co_name,m.vat_no,m.vgst,m.f_type,m.fname_t,m.fname_i,m.bno
   m.bk_type = ""
   m.Inv_copy = arc[cn]
-  m.curform = 'vcmgstsql_pln1_2' && this is the current form
+  m.curform = 'vcmgstsql_pln1_3' && this is the current form
   CLEAR
 
   m.certify = "I/We hererby declare that this invoice shows the actual price of the goods described "
@@ -547,7 +548,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     PRIV m.Inv_copy,m.curform,m.certify,m.ftype,m.co_name,m.vat_no,m.vgst,m.f_type,m.fname_t,m.fname_i,m.bno
 
     m.Inv_copy = "Original for Buyer"
-    m.curform = 'vcmgstsql_pln1_2' && this is the current form with  IEC code
+    m.curform = 'vcmgstsql_pln1_3' && this is the current form with  IEC code
     CLEAR
 
     m.certify = "I/We hereby Certify that my/our registration Certificate under the Maharashtra Value Added Tax Act 2002 is in force "
@@ -689,7 +690,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
   FUNCTION rdBill
     PRIV rv
     PRIV m.f1no,m.f1dt, m.f2no, m.f2dt, m.pcode, m.pname , m.p_addr
-    PRIV m.cr,m.gst
+    PRIV m.cr,m.gst,m.p_dlv
     PRIV m.ordno,m.orddt,m.trspt,m.lrno,m.lrDt,m.dest
 
     WITH THIS.kurbil
@@ -867,6 +868,7 @@ DEFIN CLASS bill AS CUSTOM   && Individual Bill obj
       store '' to m.trspt,m.dest
       store '' to m.lrno
       .p_addr = ""
+      .p_dlv = ""
       m.p_addr = ""
       .cr = 0
       .co = ""

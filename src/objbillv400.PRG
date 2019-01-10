@@ -505,7 +505,21 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     THIS.kurbil.kntBill = THIS
     =IIF(THIS.rdBill() .AND. .F.,THIS.putBill(THIS.kurbil.bno),"")
     RETURN
-
+    
+    
+  FUNCTION  cpyBill( pbno)
+    *  This will copy the bill from the exisiting position in the grid 
+    * No items will be copied as of now
+    wait window "Copying Bill No " + pbno
+    THIS.getBill(pbno)
+    this.kurbil.bno = THIS.nx_bill()
+    this.kurbil.bdt = Date()
+    this.kurbil.f2no = this.kurbil.bno
+    this.kurbil.f2dt = this.kurbil.f2dt
+    set step on
+    =IIF(THIS.rdBill() .AND. .F.,THIS.putBill(THIS.kurbil.bno),"")
+    
+  RETURN
 
   FUNCTION ediBill(pbno)  && Edits the current Bill pbno
     PRIV v
@@ -583,6 +597,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
         pcode= m.pcode, ;
         pname = m.pname, ;
         p_addr = m.p_addr, ;
+        p_dlv = m.p_dlv ;
         cr = m.cr ,;
         gst = m.gst ;
         WHERE f1no  = m.pbno
@@ -598,8 +613,9 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 .kurbil.frm = m.frm
 .kurbil.pname = m.pname
 .kurbil.p_addr = m.p_addr
+.kurbil.p_dlv = m.p_dlv
 .kurbil.cr = m.cr
-        INSERT INTO(THIS.fname)  (f1no,f1dt,f2no, f2dt,pcode,FORM,pname,p_addr,cr,gst)   VALUES (m.pbno,.kurbil.bdt,.kurbil.f2no,.kurbil.f2dt,.kurbil.pcode,.kurbil.frm,.kurbil.pname,.kurbil.p_addr,.kurbil.cr,.kurbil.gst)
+        INSERT INTO(THIS.fname)  (f1no,f1dt,f2no, f2dt,pcode,FORM,pname,p_addr,itxt,cr,gst)   VALUES (m.pbno,.kurbil.bdt,.kurbil.f2no,.kurbil.f2dt,.kurbil.pcode,.kurbil.frm,.kurbil.pname,.kurbil.p_addr,.kurbil.p_dlv,.kurbil.cr,.kurbil.gst)
       ENDWITH
     ENDIF
     WITH THIS.kurbil
@@ -637,6 +653,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     obno.frm = ar1[7]         && Form if any
     obno.pname = ar1[8]       && Party Name
     obno.p_addr = ar1[9]      && Party Addres
+    obno.p_dlv = ar1[10]
     obno.cr = ar1[12]           && Credit Days
     obno.co = ar1[13]          && Company
     obno.gst = ar1[15]         && get the gst after skipping ord/lr/itxt
@@ -672,7 +689,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
   FUNCTION rdBill
     PRIV rv
     PRIV m.f1no,m.f1dt, m.f2no, m.f2dt, m.pcode, m.pname , m.p_addr
-    PRIV m.cr,m.gst
+    PRIV m.cr,m.gst,m.p_dlv
     PRIV m.ordno,m.orddt,m.trspt,m.lrno,m.lrDt,m.dest
 
     WITH THIS.kurbil
@@ -683,6 +700,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
       m.pcode= .pcode
       m.pname = .pname
       m.p_addr = .p_addr
+      m.p_dlv = .p_dlv
       m.frm = .frm
       m.cr = .cr
       m.gst = .gst
@@ -708,6 +726,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
         .pcode = m.pcode
         .pname = m.pname
         .p_addr = m.p_addr
+        .p_dlv = m.p_dlv
         .frm = m.frm
         .cr = m.cr
         .gst = m.gst
@@ -800,6 +819,7 @@ DEFIN CLASS bill AS CUSTOM   && Individual Bill obj
   frm = ""         && Form if any
   pname = ""       && Party Name
   p_addr = ""      && Party Addres
+  p_dlv = ""       && Party Delivery Address
   oOrd = NULL      && Object containing Order Details
   oDlv = NULL      && Object containig Delivery Details
   cr = 0           && Credit Days
@@ -842,11 +862,12 @@ DEFIN CLASS bill AS CUSTOM   && Individual Bill obj
       .pname = ""
       store '' to m.f2no
       store ctod('') to m.f2dt,m.orddt,m.lrdt
-      store '' to m.pname,m.p_addr,m.pcode,m.gst
+      store '' to m.pname,m.p_addr,m.p_dlv,m.pcode,m.gst
       store '' to m.ordno
       store '' to m.trspt,m.dest
       store '' to m.lrno
       .p_addr = ""
+      .p_dlv = ""
       m.p_addr = ""
       .cr = 0
       .co = ""
