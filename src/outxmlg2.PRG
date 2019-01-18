@@ -771,7 +771,7 @@ return
 * * * * * * * * * * * * * *
 function add_tlm(pn,pa,gs)    && adds a tallymas object
 * * * * * * * * * * * * * *
-
+if ascan(this.kntlst,pn) = 0  && check if name doesnt already exist in the array for adding to master Add if not exist
  Priv n
  n = this.knt+1
 
@@ -782,6 +782,7 @@ function add_tlm(pn,pa,gs)    && adds a tallymas object
  this.otlym.paddr = pa
  this.otlym.pmvat  =gs
  this.knt = n
+endif
  return
 
 * * * * * * * * * * * 

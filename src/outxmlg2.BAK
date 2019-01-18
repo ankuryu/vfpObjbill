@@ -752,8 +752,8 @@ function upd_ldgr  && Updates the ledger used during outxml
 *set step on
  acti scree
  Priv fh,i,j
-* fh = fopen( this.ldgfname,12) && Open the file for writing
-* =fseek(fh,0,2) && move the file to the end of the file
+ fh = fopen( this.ldgfname,12) && Open the file for writing
+ =fseek(fh,0,2) && move the file to the end of the file
  for i = 1 to this.knt
    this.otlym = this.kntlst[i]
    if !this.otlym.pmvat == ""
@@ -764,7 +764,7 @@ function upd_ldgr  && Updates the ledger used during outxml
     endif
    endif 
  next i   
-* =fclose(fh)
+ =fclose(fh)
 return
 
 
