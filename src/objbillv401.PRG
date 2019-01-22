@@ -598,7 +598,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
         pcode= m.pcode, ;
         pname = m.pname, ;
         p_addr = m.p_addr, ;
-        p_dlv = m.p_dlv ;
+        itxt = m.p_dlv, ;
         cr = m.cr ,;
         gst = m.gst ;
         WHERE f1no  = m.pbno
