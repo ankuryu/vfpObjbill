@@ -209,7 +209,7 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
   ENDIF
 
   IF !EMPTY(bgst)
-    igstflg = !(LEFT(bgst,2) == LEFT(vgst,2))             &&  Flag for  IGST / SCGS+CGST
+   
 && if both GST numbers from same state IGSTFLG false else true
     STORE '' TO m.ord_dt1,m.ord_dt2
   ELSE
@@ -444,7 +444,7 @@ FUNCTION chkit
 
 ***********************************************
 DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
-  kurbil = NULL  && current bill
+  kurbil = NULL  && current bill object
   ttlbil = 0     && total bill in kont
   lstbno = ""    &&  Last bill no.
   co = ""        &&  Copmany Code
@@ -452,6 +452,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
   bk = ""        &&  Book Code
   fname = ""      && contains the dbf file containing bills
   rdfrm = NULL   &&  Form for reading in data
+  fnclpt = ""    && Clip Board File name
 
   FUNCTION INIT()
     THIS.kurbil = CREATEOBJECT("Bill",THIS)
@@ -506,7 +507,23 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     THIS.kurbil.kntBill = THIS
     =IIF(THIS.rdBill() .AND. .F.,THIS.putBill(THIS.kurbil.bno),"")
     RETURN
-    
+
+   FUNCTION pst2Clip(pbno)  &&  This will paste the contents of the pbno into the clipboard file
+    Priv m.clptop, m.clpitm
+    m.clptop = this.fnclpt this.fnclpt
+    m.clpitm = this.kurbil.itmlst.fnclpi
+    m.clptop = sys(3)
+    select * from (this.fname) where f1no == pbno to (m.clptop) && copy the bill to the clipfile
+    this.kurbil.itmlst.fnclpi = sys(3)
+    select * from (this.kurbil.itmlst.fname) where bno == pbno  to (m.clpitm)
+
+   RETURN
+
+   FUNCTION cpyfrmclip()  && This will copy the contents of the clipboard into the current billform assigning it the next bno
+   
+
+   RETURN
+
     
   FUNCTION  cpyBill( pbno)
     *  This will copy the bill from the exisiting position in the grid 
@@ -517,7 +534,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     this.kurbil.bdt = Date()
     this.kurbil.f2no = this.kurbil.bno
     this.kurbil.f2dt = this.kurbil.f2dt
-    set step on
+    * // set step on
     =IIF(THIS.rdBill() .AND. .F.,THIS.putBill(THIS.kurbil.bno),"")
     
   RETURN
@@ -909,6 +926,7 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
   ikifname = ""                 && iki file name
   rdfrm  = NULL                 &&  form to read items
   obill  = NULL                 && points to the objbill
+  fnclpi = ""                   && File name of the item clipboard
 
 
   FUNCTION INIT(m.pbobj)
@@ -1086,6 +1104,9 @@ DEFINE CLASS kntitm  AS CUSTOM  && Define kontainer obj of items
       DIME THIS.lstItm[1]       && Doesnt have items.
     ENDIF
 
+FUNCTION pstfrmclpitm(pbno) && Paste into current bill from the clipboard
+
+Function cpy2clpitm(pbno) && copy the current items into the clipboard
 
   FUNCTION nul_one
 
