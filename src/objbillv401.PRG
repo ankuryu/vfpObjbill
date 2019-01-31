@@ -58,7 +58,7 @@ m.frmtup=NULL
 m.frmitm=NULL
 m.frmtnc=NULL   && Terms & Conditions form for quotation
 m.frmopr = NULL
-
+m.clpbrd = NULL  && Clipboard form
 
 *
 m.kgst1 = CREATEOBJECT("kgst")       && Create the Container and its object for GST
@@ -74,6 +74,8 @@ ENDWITH
 DO FORM frmtup NAME m.frmtup NOSHOW
 DO FORM frmitm2 NAME m.frmitm NOSHOW && with pmbknt.kurbil.itmLst
 DO FORM frmtnc NAME m.frmtnc NOSHOW
+DO FORM clpbrd NAME m.clpbrd NOSHOW
+
 SELE 0
 DO FORM frmopr NAME m.frmopr NOSHOW  && main operation form for select co,yr bk, & add/edit/print etc
 
