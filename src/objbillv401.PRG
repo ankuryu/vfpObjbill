@@ -147,7 +147,7 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
 **************************************
 * used to print a Bill
 * cn is the copy number ranging from 1 to 3
-
+ *set step on
   cn = IIF(!BETWEEN(cn,1,3),1,cn)
   DIME arc[3]
   arc[1] = "Original for Buyer"
@@ -207,14 +207,16 @@ FUNCTION prn_1bn(m.blno,cn,kobj)
     m.stname = ''
     m.sabr =  ''
   ENDIF
+  m.igstflg = (left(m.bgst,2) # left(m.vat_no,2))    && check if Supply is in same state as Sellers
+  m.igstflg = iif(empty(m.bgst),.f. ,m.igstflg)    && Check if Unregistered dealer also
+      STORE '' TO m.ord_dt1,m.ord_dt2
+*  IF !EMPTY(bgst)
 
-  IF !EMPTY(bgst)
-   
 && if both GST numbers from same state IGSTFLG false else true
-    STORE '' TO m.ord_dt1,m.ord_dt2
-  ELSE
-    igstflg = .F.                                          && Unregistered dealer requires sgst/cgst
-  ENDIF
+
+*  ELSE
+*    igstflg = .F.                                          && Unregistered dealer requires sgst/cgst
+*  ENDIF
 
   IF MEMLINE(m.o_dtl) > 0
     m.ord_dt1 = MLINE(m.o_dtl,1)
