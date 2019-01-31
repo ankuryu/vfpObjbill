@@ -95,8 +95,9 @@ m.pmbknt.kurbil.itmlst.rdfrm = m.frmitm   && set ref to itm obj reading form
 
 CLEAR
 m.frmopr.SHOW()     && start the main operation form
-m.frmopr.cboCo.SETFOCUS() && set the focus and start of events
+m.frmopr.txtLogin.SETFOCUS() && set the focus and start of events
 READ EVENT
+set step on
 CLOSE DATA               && exit from the event loop
 CLEA WINDOWS ALL         && clea all windows & objs
 CLEA ALL
