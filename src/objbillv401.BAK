@@ -13,7 +13,7 @@
 
 * Following Bugs need to be attended to
 * General :   VVIMP   same company/year/book cannot be opened , incorporate locking system
-
+"
 *  Party top related
 *  a)Problem with the dates, remove century
 *  b)Doesnt save the Party name and addr during the first timee, however
@@ -58,7 +58,7 @@ m.frmtup=NULL
 m.frmitm=NULL
 m.frmtnc=NULL   && Terms & Conditions form for quotation
 m.frmopr = NULL
-
+m.clpbrd = NULL  && Clipboard form
 
 *
 m.kgst1 = CREATEOBJECT("kgst")       && Create the Container and its object for GST
@@ -74,6 +74,8 @@ ENDWITH
 DO FORM frmtup NAME m.frmtup NOSHOW
 DO FORM frmitm2 NAME m.frmitm NOSHOW && with pmbknt.kurbil.itmLst
 DO FORM frmtnc NAME m.frmtnc NOSHOW
+DO FORM clpbrd NAME m.clpbrd NOSHOW
+
 SELE 0
 DO FORM frmopr NAME m.frmopr NOSHOW  && main operation form for select co,yr bk, & add/edit/print etc
 
@@ -95,8 +97,9 @@ m.pmbknt.kurbil.itmlst.rdfrm = m.frmitm   && set ref to itm obj reading form
 
 CLEAR
 m.frmopr.SHOW()     && start the main operation form
-m.frmopr.cboCo.SETFOCUS() && set the focus and start of events
+m.frmopr.txtLogin.SETFOCUS() && set the focus and start of events
 READ EVENT
+set step on
 CLOSE DATA               && exit from the event loop
 CLEA WINDOWS ALL         && clea all windows & objs
 CLEA ALL
@@ -1188,6 +1191,9 @@ DEFINE CLASS itm  AS CUSTOM
   iki = ""           &&
   DESCR = ""         &&
   hsn = ""           &&  hsn code for GST
+  cal = ""           &&  calculating field
+  nar = ""           &&  narations for above calculating field
+  rnd = ""           && rounding for calcularions
   kntitm = NULL      &&  pointer to the container of items
   omcs = NULL        &&  invobj
   kmcs = NULL        &&  Kontainer obj for mcs, contains also mcsd used for retrieving descripition /prices etc
