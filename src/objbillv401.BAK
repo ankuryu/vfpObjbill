@@ -99,7 +99,7 @@ CLEAR
 m.frmopr.SHOW()     && start the main operation form
 m.frmopr.txtLogin.SETFOCUS() && set the focus and start of events
 READ EVENT
-set step on
+
 CLOSE DATA               && exit from the event loop
 CLEA WINDOWS ALL         && clea all windows & objs
 CLEA ALL

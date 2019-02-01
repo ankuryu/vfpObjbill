@@ -13,7 +13,7 @@
 
 * Following Bugs need to be attended to
 * General :   VVIMP   same company/year/book cannot be opened , incorporate locking system
-"
+
 *  Party top related
 *  a)Problem with the dates, remove century
 *  b)Doesnt save the Party name and addr during the first timee, however
