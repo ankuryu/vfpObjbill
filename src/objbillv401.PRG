@@ -75,7 +75,7 @@ DO FORM frmtup NAME m.frmtup NOSHOW
 DO FORM frmitm2 NAME m.frmitm NOSHOW && with pmbknt.kurbil.itmLst
 DO FORM frmtnc NAME m.frmtnc NOSHOW
 DO FORM clpbrd NAME m.clpbrd NOSHOW
-set step on
+
 SELE 0
 DO FORM frmopr NAME m.frmopr NOSHOW  && main operation form for select co,yr bk, & add/edit/print etc
 
