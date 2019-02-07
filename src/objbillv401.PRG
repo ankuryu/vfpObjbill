@@ -473,6 +473,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     RETURN nxbil
 
   FUNCTION set_cyb  &&  Sets the company Year and book  given the param co,yr,bk
+
     PRIV m.co ,m.yr , m.bk
     m.co = THIS.co
     m.yr = THIS.yr
@@ -483,6 +484,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 
     PRIV rv,tfname, ifname, vfname  && fname of top,itm and inv
     rv = .T.                                 && set the return value to true
+    m.bk = iif(m.bk == '3','2',m.bk)
     tfname = m.co + m.yr + m.bk + 'top.dbf'
     ifname = m.co + m.yr + m.bk + 'itm.dbf'
     vfname = m.co + m.yr + 'inv.dbf'
