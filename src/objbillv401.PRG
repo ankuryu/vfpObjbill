@@ -65,7 +65,7 @@ m.kgst1 = CREATEOBJECT("kgst")       && Create the Container and its object for 
 m.pmbknt = CREATEOBJECT("kntBill")
 WITH m.pmbknt
   .co = 'PM'   && set the co code
-  .yr = '18'   && et the yr code
+  .yr = '19'   && et the yr code
   .bk = '2'    && set the book code
   .set_cyb()
 ENDWITH
@@ -113,7 +113,10 @@ RETURN
 **************************************
 FUNCTION sw_win(shw,hid)  && function to show hide windows
 **************************************
+*set step on
+     =frmopr.hide()
   DO CASE
+
     CASE shw = 'bill'
       =frmitm.HIDE()
       =frmtup.SHOW()
@@ -129,17 +132,6 @@ FUNCTION sw_win(shw,hid)  && function to show hide windows
   ENDCASE
 
 
-*IF shw = "bill"
-*  =frmitm.hide()
-*  =frmtup.show()
-
-*ELSE
-*  SELE itms
-*  GO top
-*  =frmtup.hide()
-*  =frmitm.show()
-
-*ENDIF
   RETURN
 
 ************ Global  Functions to print ***************
@@ -738,9 +730,11 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 
 
     ENDWITH
+    set step on
     xval= THIS.rdfrm.SHOW(1)
+    *this.rdfrm.txtf1dt.setfocus()
 
-    READ EVENTS
+    *READ EVENTS
     rv = .F.
     IF THIS.rdfrm.xit = 1
       WITH THIS.kurbil
@@ -1195,7 +1189,7 @@ DEFINE CLASS itm  AS CUSTOM
   hsn = ""           &&  hsn code for GST
   cal = ""           &&  calculating field
   nar = ""           &&  narations for above calculating field
-  rnd = ""           && rounding for calcularions
+  rnd = 0           && rounding for calcularions
   kntitm = NULL      &&  pointer to the container of items
   omcs = NULL        &&  invobj
   kmcs = NULL        &&  Kontainer obj for mcs, contains also mcsd used for retrieving descripition /prices etc
