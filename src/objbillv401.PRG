@@ -730,7 +730,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 
 
     ENDWITH
-    set step on
+    *set step on
     xval= THIS.rdfrm.SHOW(1)
     *this.rdfrm.txtf1dt.setfocus()
 
