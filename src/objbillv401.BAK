@@ -541,8 +541,9 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
   FUNCTION ediBill(pbno)  && Edits the current Bill pbno
     PRIV v
     THIS.getBill(pbno)      && Get the bill no pbno
+    set step on
     v = THIS.rdBill()
-
+ 
     RETURN
 
 
@@ -730,7 +731,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
 
 
     ENDWITH
-    set step on
+    *set step on
     xval= THIS.rdfrm.SHOW(1)
     *this.rdfrm.txtf1dt.setfocus()
 

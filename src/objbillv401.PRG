@@ -542,7 +542,7 @@ DEFINE CLASS kntBill  AS CUSTOM && Defines the container obj for Bills
     PRIV v
     THIS.getBill(pbno)      && Get the bill no pbno
     v = THIS.rdBill()
-
+ 
     RETURN
 
 
